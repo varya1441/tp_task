@@ -97,7 +97,7 @@ def hungarian_algorithm(matrix, max_problem=False):
             if j0 == 0:
                 break
     # Resulting queue
-    result_queue = p[1:]
+    result_queue = p[1:]-1
     price = -v[0]
 
     return result_queue, price
@@ -119,4 +119,4 @@ if __name__ == "__main__":
     result, price = hungarian_algorithm(my_matrix, max_problem=True)
     print(result,price)
     #Expected output
-    #[2 3 5 1 4] 3.0
+    #[1 2 4 0 3] 3.0

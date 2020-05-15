@@ -12,9 +12,20 @@ Algorithm.py        <- for queue creation from a given matrix
 
 import Algorithm
 import DataFormatting
+import numpy as np
 
 
 if __name__ == "__main__":
     """Here a given file will be formatted into matrix.
     Then algorithm will be executed and results returned"""
-    pass
+    example= [[15,16,17,18,19],
+            [1,1,3,1,16],
+            [2,8,8,6,17],
+            [2,2,2,8,18],
+            [4,6,7,8,19]]
+    example= np.asarray(example, dtype=np.float32)
+
+    result,price=Algorithm.hungarian_algorithm(example,max_problem=True)
+
+    print("For matrix:\n{}\nQueue is the following {}\nTotal cost: {}\n".format(example,result,price))
+
