@@ -24,4 +24,8 @@ public class Result {
             fetch = FetchType.EAGER
     )
     private List<Student> students = new ArrayList<>();
+
+    public List<Student> getStudents() {
+        return students;
+    }
 }
