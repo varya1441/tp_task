@@ -14,9 +14,6 @@ import java.util.List;
 //Группа - название, список студентов, староста
 public class Group {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
     private String groupName;
     // @NotEmpty
     @OneToMany(
@@ -51,5 +48,21 @@ public class Group {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public Student getGroupLeader() {
+        return groupLeader;
+    }
+
+    public void setGroupLeader(Student groupLeader) {
+        this.groupLeader = groupLeader;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 }

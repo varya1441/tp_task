@@ -16,6 +16,9 @@ public class Priority {
     private long id;
     @ManyToOne
     private Event event;
+    @OneToOne
+    private Student student;
+
 
 //    private TreeMap<String,Integer> priority=new TreeMap<>();
 }

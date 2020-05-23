@@ -1,4 +1,4 @@
-package main.java.com.bsu.pt.exam;
+package com.bsu.pt.exam;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

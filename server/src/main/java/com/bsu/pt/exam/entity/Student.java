@@ -31,4 +31,5 @@ public class Student {
     @ManyToOne
     private Result result;
 
+
 }
