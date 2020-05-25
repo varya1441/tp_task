@@ -13,10 +13,12 @@ Algorithm.py        <- for queue creation from a given matrix
 import Algorithm
 import DataFormatting
 import numpy as np
+import json
+import requests 
 
 
 if __name__ == "__main__":
-    """Here a given file will be formatted into matrix.
+    """By receiving json from request data in formatting and passed to algorithm.
     Then algorithm will be executed and results returned"""
     example= [[15,16,17,18,19],
             [1,1,3,1,16],
