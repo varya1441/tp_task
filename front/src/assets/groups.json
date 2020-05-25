@@ -1,0 +1,41 @@
+[
+  {
+    "groupId": "idGroup_03",
+    "groupName": "group_03",
+    "leader": {
+      "id": "a",
+      "name": "Nikita",
+      "lastName": "Tseu",
+      "login": "loginTseu",
+      "password": "passwordTseu",
+      "role": "LEADER"
+    },
+    "students": [
+      {
+        "id": "a",
+        "name": "Nikita",
+        "lastName": "Tseu",
+        "login": "loginTseu",
+        "password": "passwordTseu",
+        "role": "LEADER"
+      },
+      {
+        "id": "b",
+        "name": "Varvara",
+        "lastName": "Tikhonova",
+        "login": "loginTikhonova",
+        "password": "passwordTikhonova",
+        "role": "STUDENT"
+      },
+      {
+        "id": "c",
+        "name": "Timofey",
+        "lastName": "Kruk",
+        "login": "loginKruk",
+        "password": "passwordKruk",
+        "role": "STUDENT"
+      }
+    ]
+
+  }
+]
