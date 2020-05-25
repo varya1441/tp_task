@@ -44,8 +44,6 @@ def hungarian_algorithm(matrix, max_problem=False):
     way = np.zeros((m+1,), dtype=np.int32)
 
     for new_row in range(n):
-        print("AAA", new_row)
-
         # That is an additional element for start
         p[0] = new_row+1  # number of current row (starting from 1) being added
         j0 = 0
@@ -56,7 +54,6 @@ def hungarian_algorithm(matrix, max_problem=False):
 
         # Do while
         while True:
-            print(p)
             # DO part
             used[j0] = True
 
@@ -72,7 +69,6 @@ def hungarian_algorithm(matrix, max_problem=False):
                     if min_v[j] < delta:
                         delta = min_v[j]
                         j1 = j
-                        print(j1)
 
             for j in range(0, m+1):
                 if used[j]:
@@ -84,11 +80,9 @@ def hungarian_algorithm(matrix, max_problem=False):
             j0 = j1
             # while part
             if p[j0] == 0:
-                print("BBBBB----STOOOOOOOOP!!!!!!!1")
                 break
 
         while True:
-            print("CCC")
             # Do part
             j1 = way[j0]
             p[j0] = p[j1]
@@ -103,8 +97,6 @@ def hungarian_algorithm(matrix, max_problem=False):
     return result_queue, price
 
 
-
-
 # Only for debugging
 if __name__ == "__main__":
     my_matrix = [[7, 3, 6, 9, 5],
@@ -117,6 +109,6 @@ if __name__ == "__main__":
     my_matrix = np.asarray(my_matrix, dtype=np.float32)
 
     result, price = hungarian_algorithm(my_matrix, max_problem=True)
-    print(result,price)
-    #Expected output
-    #[1 2 4 0 3] 3.0
+    print(result, price)
+    # Expected output
+    # [1 2 4 0 3] 3.0
