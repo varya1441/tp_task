@@ -28,13 +28,14 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event update(long id, Event event) {
+    public Event update(String id, Event event) {
         return null;
     }
 
     @Override
-    public Event getEventById(long id) {
-        return eventRepository.getOne(id);
+    public Event getEventById(String id) {
+        return eventRepository.findById(id)
+                .orElseThrow(() -> new ItemNotFoundException("event with id - " + id + "not found"));
     }
 
     @Override
@@ -43,7 +44,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Result getEventResult(long id) {
+    public Result getEventResult(String id) {
         return null;
     }
 }

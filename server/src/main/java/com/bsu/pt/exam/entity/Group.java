@@ -1,5 +1,6 @@
 package com.bsu.pt.exam.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "sudent_group")
-@Getter
-@Setter
+@Data
 //Группа - название, список студентов, староста
 public class Group {
     @Id
@@ -32,7 +32,11 @@ public class Group {
             mappedBy = "group",
             fetch = FetchType.EAGER
     )
-    private List<Event> events=new ArrayList<>();
+    private List<Event> events = new ArrayList<>();
+
+    public Group(String groupName) {
+        this.groupName = groupName;
+    }
 
     public List<Event> getEvents() {
         return events;

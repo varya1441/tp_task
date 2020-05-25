@@ -1,8 +1,8 @@
 package com.bsu.pt.exam.repository;
 
 import com.bsu.pt.exam.entity.Event;
-import com.bsu.pt.exam.entity.Result;
+import com.bsu.pt.exam.entity.Priority;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ResultRepository extends JpaRepository<Result, String> {
+public interface PriorityRepository  extends JpaRepository<Priority, String> {
 }

@@ -1,10 +1,13 @@
 package com.bsu.pt.exam.service.impl;
 
+import com.bsu.pt.exam.entity.Role;
 import com.bsu.pt.exam.entity.Student;
 import com.bsu.pt.exam.exception.ItemNotFoundException;
 import com.bsu.pt.exam.repository.StudentRepository;
 import com.bsu.pt.exam.service.StudentService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +15,16 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
-    public StudentServiceImpl(StudentRepository studentRepository) {
+    public StudentServiceImpl(StudentRepository studentRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.studentRepository = studentRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
+
+
+
 
     @Override
     public List<Student> getAll() {
@@ -27,22 +36,32 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student save(Student user) {
-        return null;
+    public Student save(Student pUser) {
+
+
+        String password = pUser.getPassword() != null ? pUser.getPassword() : Student.DEFAULT_USER_PASSWORD;
+        pUser.setPassword(bCryptPasswordEncoder.encode(password));
+        return studentRepository.save(pUser);
     }
 
     @Override
     public Student update(String id, Student pUser) {
-        return null;
+        Student user = findById(id);
+        BeanUtils.copyProperties(pUser, user, "id", "password");
+        return studentRepository.save(user);
     }
 
-    @Override
-    public void resetPassword(Student user, String newPassword) {
 
-    }
 
     @Override
     public void delete(String id) {
+        Student studentToRemove=findById(id);
+        if(studentToRemove!=null){
+            studentRepository.delete(studentToRemove);
+        }
+        else {
+            throw new ItemNotFoundException("No student to delete found with id"+id);
+        }
 
     }
 
@@ -53,7 +72,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student findById(long id) {
+    public Student findById(String id) {
         return  studentRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("student with id - " + id + "not found"));
     }

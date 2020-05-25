@@ -1,7 +1,7 @@
 package com.bsu.pt.exam.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,12 +10,12 @@ import java.util.List;
 //Решение - порядок студентов
 @Entity
 @Table(name = "result")
-@Getter
-@Setter
+@Data
 public class Result {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
    // @NotEmpty
     @OneToMany(
             cascade = CascadeType.ALL,
@@ -23,9 +23,13 @@ public class Result {
             mappedBy = "result",
             fetch = FetchType.EAGER
     )
-    private List<Student> students = new ArrayList<>();
+    private List<Priority> priorities = new ArrayList<>();
 
-    public List<Student> getStudents() {
-        return students;
+    public List<Priority> getPriorities() {
+        return priorities;
+    }
+
+    public void setPriorities(List<Priority> students) {
+        this.priorities = students;
     }
 }

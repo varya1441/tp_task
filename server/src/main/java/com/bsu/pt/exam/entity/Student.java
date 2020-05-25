@@ -1,20 +1,27 @@
 package com.bsu.pt.exam.entity;
 
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @Entity
+@NoArgsConstructor
 @Table(name = "student")
 //Пользователь - ФИО, логин, пароль, роль
 public class Student {
+    public static final String DEFAULT_USER_LOGIN = "default";
+    public static final String DEFAULT_USER_PASSWORD = "123456";
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
     private String name;
     @Column(name = "last_name")

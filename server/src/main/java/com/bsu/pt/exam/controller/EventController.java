@@ -23,7 +23,7 @@ public class EventController {
         return new ResponseEntity<>(eventService.addEvent(event), HttpStatus.CREATED);
     }
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Event> getByUserId(@PathVariable long id) {
+    public ResponseEntity<Event> getByUserId(@PathVariable String id) {
         return new ResponseEntity<Event>(eventService.getEventById(id), HttpStatus.OK);
     }
 }

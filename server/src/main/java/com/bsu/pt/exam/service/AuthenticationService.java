@@ -12,4 +12,5 @@ public interface AuthenticationService {
 	JwtToken login(LoginRequest loginRequest);
 	JwtToken refresh(String refreshToken) throws ExpiredJwtException;
 	void logout(String accessToken);
+
 }

@@ -7,12 +7,12 @@ import com.bsu.pt.exam.exception.ItemNotFoundException;
 import java.time.LocalDate;
 
 public interface EventService {
-    Event update(long id, Event event);
+    Event update(String id, Event event);
 
-    Event getEventById(long id);
+    Event getEventById(String id);
 
     Event getEventByDate(LocalDate date);
 
-    Result getEventResult(long id);
+    Result getEventResult(String id);
     Event addEvent(Event event) throws ItemNotFoundException;
 }

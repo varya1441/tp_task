@@ -1,7 +1,9 @@
 package com.bsu.pt.exam.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,12 +13,12 @@ import java.util.List;
 //Событие - название, дата, группа, приоритеты студентов группы, решение
 @Entity
 @Table(name = "event")
-@Getter
-@Setter
+@Data
 public class Event {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
     @Column(name = "event_name")
     private String eventName;

@@ -5,33 +5,43 @@ import com.bsu.pt.exam.entity.Student;
 import com.bsu.pt.exam.exception.ItemNotFoundException;
 import com.bsu.pt.exam.repository.ResultRepository;
 import com.bsu.pt.exam.service.ResultService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class ResultServiceImpl implements ResultService {
     ResultRepository resultRepository;
+
     @Autowired
     public ResultServiceImpl(ResultRepository resultRepository) {
         this.resultRepository = resultRepository;
     }
 
     @Override
-    public Result updateResult(long id,Result result) {
-        return null;
+    public Result updateResult(String id, Result pResult) {
+        Result result = getById(id);
+        BeanUtils.copyProperties(pResult, result, "id");
+        return resultRepository.save(result);
     }
 
+//    @Override
+//    public List<Student> getStudentList(String id) {
+//        Result result = getById(id);
+//        return result.getPriorities();
+//
+//    }
+
     @Override
-    public List<Student> getStudentList(long id) {
-        Result result=resultRepository.findById(id)
+    public Result getById(String id) {
+        return resultRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("result with id - " + id + "not found"));
-        return result.getStudents();
-
     }
 
     @Override
-    public Result getById(long id) {
-        return null;
+    public Result save(Result result) {
+        return resultRepository.save(result);
     }
 }

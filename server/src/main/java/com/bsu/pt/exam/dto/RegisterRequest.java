@@ -1,30 +1,72 @@
 package com.bsu.pt.exam.dto;
 
-import lombok.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+import com.bsu.pt.exam.entity.Group;
+import com.bsu.pt.exam.entity.Role;
+
+import javax.persistence.Column;
 
 public class RegisterRequest {
 
-	private String login;
+    private String login;
 
-	private String password;
+    private String password;
+    private String name;
 
-	public String getLogin() {
-		return login;
-	}
+    private String lastName;
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    private String role;
+    private String groupName;
 
-	public String getPassword() {
-		return password;
-	}
+    public String getGroupName() {
+        return groupName;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Role getRole() {
+        if (!role.toUpperCase().equals("LEADER")) {
+            return Role.STUDENT;
+        } else {
+            return Role.LEADER;
+        }
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
