@@ -8,9 +8,12 @@ import io.jsonwebtoken.ExpiredJwtException;
 
 
 public interface AuthenticationService {
-	Student registration(RegisterRequest registerRequest);
-	JwtToken login(LoginRequest loginRequest);
-	JwtToken refresh(String refreshToken) throws ExpiredJwtException;
-	void logout(String accessToken);
+    Student registration(RegisterRequest registerRequest);
+
+    JwtToken login(LoginRequest loginRequest);
+
+    JwtToken refresh(String refreshToken) throws ExpiredJwtException;
+
+    void logout(String accessToken);
 
 }

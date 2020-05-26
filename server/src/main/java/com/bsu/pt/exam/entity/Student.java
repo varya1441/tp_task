@@ -2,9 +2,7 @@ package com.bsu.pt.exam.entity;
 
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -43,8 +41,6 @@ public class Student {
         this.login = login;
         this.password = password;
     }
-
-
 
 
 }

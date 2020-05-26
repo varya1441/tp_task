@@ -1,6 +1,7 @@
 package com.bsu.pt.exam.service.impl;
 
-import com.bsu.pt.exam.entity.Role;
+import com.bsu.pt.exam.dto.PriorityDto;
+import com.bsu.pt.exam.entity.Priority;
 import com.bsu.pt.exam.entity.Student;
 import com.bsu.pt.exam.exception.ItemNotFoundException;
 import com.bsu.pt.exam.repository.StudentRepository;
@@ -23,8 +24,14 @@ public class StudentServiceImpl implements StudentService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-
-
+    @Override
+    public Student setPriority(String studentId, PriorityDto priorityDto) {
+        Student student = findById(studentId);
+        Integer len = student.getGroup().getStudents().size();
+        Priority priority = new Priority();
+        //TODo priority
+        return null;
+    }
 
     @Override
     public List<Student> getAll() {
@@ -52,28 +59,26 @@ public class StudentServiceImpl implements StudentService {
     }
 
 
-
     @Override
     public void delete(String id) {
-        Student studentToRemove=findById(id);
-        if(studentToRemove!=null){
+        Student studentToRemove = findById(id);
+        if (studentToRemove != null) {
             studentRepository.delete(studentToRemove);
-        }
-        else {
-            throw new ItemNotFoundException("No student to delete found with id"+id);
+        } else {
+            throw new ItemNotFoundException("No student to delete found with id" + id);
         }
 
     }
 
     @Override
     public Student findByLogin(String login) {
-        return   studentRepository.getStudentByLogin(login)
+        return studentRepository.getStudentByLogin(login)
                 .orElseThrow(() -> new ItemNotFoundException("student with name - " + login + "not found"));
     }
 
     @Override
     public Student findById(String id) {
-        return  studentRepository.findById(id)
+        return studentRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("student with id - " + id + "not found"));
     }
 

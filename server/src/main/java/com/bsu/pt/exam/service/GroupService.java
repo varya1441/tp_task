@@ -7,7 +7,14 @@ import java.util.List;
 
 public interface GroupService {
     List<Student> getStudentsByGroupName(String id);
+
     Student getGroupLeaderByGroupName(String id);
+
     Group getGroupByGroupName(String name);
-    boolean addStudent(String name,Student student);
+
+    boolean addStudent(String name, Student student);
+
+    Group getGroup(String groupName);
+
+    Group addGroup(Group group);
 }

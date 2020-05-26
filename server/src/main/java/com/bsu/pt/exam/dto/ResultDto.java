@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ResultDto {
     private String id;
-    private List<StudentDto> studentDtos=new ArrayList<>();
+    private List<StudentDto> studentDtos = new ArrayList<>();
 
     public String getId() {
         return id;

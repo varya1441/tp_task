@@ -3,7 +3,6 @@ package com.bsu.pt.exam.service.impl;
 
 import com.bsu.pt.exam.entity.Student;
 import com.bsu.pt.exam.service.StudentService;
-import com.bsu.pt.exam.service.impl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

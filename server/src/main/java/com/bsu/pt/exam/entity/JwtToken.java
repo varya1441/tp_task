@@ -15,8 +15,8 @@ import javax.persistence.Table;
 @Table(name = "token")
 public class JwtToken {
 
-	@Id
-	private String accessToken;
-	private String refreshToken;
+    @Id
+    private String accessToken;
+    private String refreshToken;
 
 }

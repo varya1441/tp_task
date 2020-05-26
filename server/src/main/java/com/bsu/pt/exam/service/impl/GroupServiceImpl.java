@@ -16,17 +16,35 @@ public class GroupServiceImpl implements GroupService {
     GroupRepository groupRepository;
     StudentService studentService;
 
+
     @Autowired
     public GroupServiceImpl(GroupRepository groupRepository, StudentService studentService) {
         this.groupRepository = groupRepository;
         this.studentService = studentService;
     }
 
+    @Override
+    public Group addGroup(Group group) {
+        return groupRepository.save(group);
+    }
 
+    @Override
+    public Group getGroup(String groupName) {
+        Group group;
+        try {
+            group = getGroupByGroupName(groupName);
+
+        } catch (ItemNotFoundException e) {
+            group = new Group(groupName);
+            addGroup(group);
+        }
+        return group;
+
+    }
 
     @Override
     public Group getGroupByGroupName(String name) {
-        return  groupRepository.findById(name)
+        return groupRepository.findById(name)
                 .orElseThrow(() -> new ItemNotFoundException("group with id - " + name + "not found"));
     }
 
@@ -43,7 +61,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public boolean addStudent(String name,Student student) {
+    public boolean addStudent(String name, Student student) {
         Group group = this.getGroupByGroupName(name);
         group.getStudents().add(student);
         return true;

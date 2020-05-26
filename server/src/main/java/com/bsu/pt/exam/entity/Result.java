@@ -16,7 +16,7 @@ public class Result {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-   // @NotEmpty
+    // @NotEmpty
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true,
@@ -24,5 +24,6 @@ public class Result {
             fetch = FetchType.EAGER
     )
     private List<Student> students = new ArrayList<>();
-
+    @OneToOne
+    private Event event;
 }

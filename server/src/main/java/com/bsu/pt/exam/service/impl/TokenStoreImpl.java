@@ -11,30 +11,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class TokenStoreImpl implements TokenStore {
 
-	private TokenRepository tokenRepository;
+    private TokenRepository tokenRepository;
 
-	@Autowired
-	public TokenStoreImpl(TokenRepository tokenRepository)  {
-		this.tokenRepository = tokenRepository;
-	}
+    @Autowired
+    public TokenStoreImpl(TokenRepository tokenRepository) {
+        this.tokenRepository = tokenRepository;
+    }
 
-	@Override
-	public JwtToken storeToken(JwtToken token) {
-		return tokenRepository.save(token);
-	}
+    @Override
+    public JwtToken storeToken(JwtToken token) {
+        return tokenRepository.save(token);
+    }
 
-	@Override
-	public void removeToken(String accessToken) {
-		tokenRepository.deleteById(accessToken);
-	}
+    @Override
+    public void removeToken(String accessToken) {
+        tokenRepository.deleteById(accessToken);
+    }
 
-	@Override
-	public JwtToken checkToken(String accessToken) {
-		try { 
-			return tokenRepository.findById(accessToken).get();
-		} catch (Exception e) {
-			throw new StudentValidationException("Token has been invalid");
-		}
-	}
+    @Override
+    public JwtToken checkToken(String accessToken) {
+        try {
+            return tokenRepository.findById(accessToken).get();
+        } catch (Exception e) {
+            throw new StudentValidationException("Token has been invalid");
+        }
+    }
 
 }

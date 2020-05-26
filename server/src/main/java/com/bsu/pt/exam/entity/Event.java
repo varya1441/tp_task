@@ -1,8 +1,6 @@
 package com.bsu.pt.exam.entity;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,7 +21,7 @@ public class Event {
     @Column(name = "event_name")
     private String eventName;
     private LocalDate date;
-    @ManyToOne(cascade = { CascadeType.ALL })
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Group group;
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true,

@@ -7,9 +7,14 @@ import com.bsu.pt.exam.exception.ItemNotFoundException;
 import java.util.List;
 
 public interface ResultService {
-    Result updateResult(String id,Result result);
+    Result updateResult(String id, Result result);
+
     List<Student> getStudentList(String id) throws ItemNotFoundException;
+
+    Result getResultByEventId(String eventId);
+
     Result getById(String id);
+
     Result save(Result result);
 
 }

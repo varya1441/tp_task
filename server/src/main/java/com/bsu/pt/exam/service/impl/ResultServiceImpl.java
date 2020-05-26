@@ -20,6 +20,12 @@ public class ResultServiceImpl implements ResultService {
         this.resultRepository = resultRepository;
     }
 
+
+    @Override
+    public Result getResultByEventId(String eventId) {
+        return resultRepository.getResultByEventId(eventId);
+    }
+
     @Override
     public Result updateResult(String id, Result pResult) {
         Result result = getById(id);

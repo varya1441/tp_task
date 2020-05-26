@@ -1,8 +1,10 @@
 package com.bsu.pt.exam.dto;
 
+import java.util.List;
+
 public class PriorityDto {
     private String id;
-    private int priority;
+    private List<Integer> priority;
 
     public String getId() {
         return id;
@@ -12,4 +14,11 @@ public class PriorityDto {
         this.id = id;
     }
 
+    public List<Integer> getPriority() {
+        return priority;
+    }
+
+    public void setPriority(List<Integer> priority) {
+        this.priority = priority;
+    }
 }

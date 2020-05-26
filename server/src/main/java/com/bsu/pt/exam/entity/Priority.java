@@ -1,12 +1,8 @@
 package com.bsu.pt.exam.entity;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 //Приоритет - студент, отображение “место-приоритет от 0 до 1”
 @Entity
@@ -19,6 +15,6 @@ public class Priority {
     private Event event;
     @OneToOne
     private Student student;
-    private int priority;
+
 
 }
