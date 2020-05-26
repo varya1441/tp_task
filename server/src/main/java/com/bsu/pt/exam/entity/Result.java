@@ -23,13 +23,6 @@ public class Result {
             mappedBy = "result",
             fetch = FetchType.EAGER
     )
-    private List<Priority> priorities = new ArrayList<>();
+    private List<Student> students = new ArrayList<>();
 
-    public List<Priority> getPriorities() {
-        return priorities;
-    }
-
-    public void setPriorities(List<Priority> students) {
-        this.priorities = students;
-    }
 }

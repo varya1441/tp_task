@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ResultService {
     Result updateResult(String id,Result result);
-//    List<Student> getStudentList(String id) throws ItemNotFoundException;
+    List<Student> getStudentList(String id) throws ItemNotFoundException;
     Result getById(String id);
     Result save(Result result);
 

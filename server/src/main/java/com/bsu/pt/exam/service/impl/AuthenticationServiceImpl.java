@@ -5,9 +5,12 @@ import com.bsu.pt.exam.dto.LoginRequest;
 import com.bsu.pt.exam.dto.RegisterRequest;
 import com.bsu.pt.exam.entity.Group;
 import com.bsu.pt.exam.entity.JwtToken;
+import com.bsu.pt.exam.entity.Role;
 import com.bsu.pt.exam.entity.Student;
+import com.bsu.pt.exam.exception.ItemNotFoundException;
 import com.bsu.pt.exam.security.JwtTokenProvider;
 import com.bsu.pt.exam.service.AuthenticationService;
+import com.bsu.pt.exam.service.GroupService;
 import com.bsu.pt.exam.service.StudentService;
 import com.bsu.pt.exam.service.TokenStore;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -35,26 +38,39 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private UserDetailsService userDetailsService;
     private TokenStore tokenStore;
     private StudentService studentService;
+    private GroupService groupService;
 
     @Autowired
     public AuthenticationServiceImpl(UserDetailServiceImpl userDetailsService,
                                      AuthenticationManager authenticationManager,
                                      JwtTokenProvider jwtTokenProvider,
                                      StudentServiceImpl userServiceImpl,
-                                     TokenStoreImpl tokenStore) {
+                                     TokenStoreImpl tokenStore,
+                                     GroupServiceImpl groupService) {
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
         this.tokenProvider = jwtTokenProvider;
         this.studentService = userServiceImpl;
         this.tokenStore = tokenStore;
+        this.groupService = groupService;
     }
 
     @Override
     public Student registration(RegisterRequest registerRequestModel) {
-
+        Group group;
         Student student = createStudent(registerRequestModel);
-        Group group = new Group(registerRequestModel.getGroupName());
-        group.setStudents(new ArrayList<>(Collections.singletonList(student)));
+        try {
+            group = groupService.getGroupByGroupName(registerRequestModel.getGroupName());
+            group.setStudents(new ArrayList<>(Collections.singletonList(student)));
+        } catch (ItemNotFoundException e) {
+            group = new Group(registerRequestModel.getGroupName());
+            group.getStudents().add(student);
+        }
+
+        if (registerRequestModel.getRole().equals(Role.LEADER)) {
+            group.setGroupLeader(student);
+        }
+
         return studentService.save(student);
     }
 

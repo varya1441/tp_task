@@ -5,10 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 //Приоритет - студент, отображение “место-приоритет от 0 до 1”
 @Entity
-@Table(name = "prioriry")
+@Table(name = "priority")
 @Data
 public class Priority {
     @Id
@@ -17,9 +19,6 @@ public class Priority {
     private Event event;
     @OneToOne
     private Student student;
-    @ManyToOne
-    private Result result;
+    private int priority;
 
-
-//    private TreeMap<String,Integer> priority=new TreeMap<>();
 }

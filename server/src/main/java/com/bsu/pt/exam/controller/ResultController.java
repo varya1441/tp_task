@@ -1,11 +1,11 @@
 package com.bsu.pt.exam.controller;
 
-import com.bsu.pt.exam.dto.PriorityDto;
 import com.bsu.pt.exam.dto.ResultDto;
-import com.bsu.pt.exam.entity.Priority;
 import com.bsu.pt.exam.entity.Result;
+import com.bsu.pt.exam.entity.Student;
 import com.bsu.pt.exam.service.PriorityService;
 import com.bsu.pt.exam.service.ResultService;
+import com.bsu.pt.exam.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +20,13 @@ import java.util.List;
 public class ResultController {
     private ResultService resultService;
     private PriorityService priorityService;
+    private StudentService studentService;
 
     @Autowired
-    public ResultController(ResultService resultService, PriorityService priorityService) {
+    public ResultController(ResultService resultService, PriorityService priorityService, StudentService studentService) {
         this.resultService = resultService;
         this.priorityService = priorityService;
+        this.studentService = studentService;
     }
 
 
@@ -35,15 +37,19 @@ public class ResultController {
     }
 
     private Result converter(ResultDto resultDto) {
-        Result result = resultService.getById(resultDto.getId());
-        List<Priority> priorities = new ArrayList<>();
-        for (PriorityDto rPrior : resultDto.getPriorityDtos()
-        ) {
-            Priority priority = priorityService.getPriorityById(rPrior.getId());
-
-            priorities.add(priority);
-        }
-        result.setPriorities(priorities);
+        Result result = new Result();
+        List<Student> students = new ArrayList<>();
+        Student student = new Student();
+        studentService.save(student);
+        students.add(student);
+        result.setStudents(students);
+//        for (StudentDto rPrior : resultDto.getStudentDtos()
+//        ) {
+//            Priority priority = priorityService.getPriorityById(rPrior.getPriorityDto().getId());
+//
+//            priorities.add(priority);
+//        }
+//        result.setPriorities(priorities);
         return result;
     }
 //    @GetMapping(value="/{id}")

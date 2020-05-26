@@ -1,10 +1,7 @@
 package com.bsu.pt.exam.dto;
 
 
-import com.bsu.pt.exam.entity.Group;
 import com.bsu.pt.exam.entity.Role;
-
-import javax.persistence.Column;
 
 public class RegisterRequest {
 

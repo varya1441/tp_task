@@ -5,6 +5,7 @@ import com.bsu.pt.exam.entity.Student;
 import com.bsu.pt.exam.exception.ItemNotFoundException;
 import com.bsu.pt.exam.repository.GroupRepository;
 import com.bsu.pt.exam.service.GroupService;
+import com.bsu.pt.exam.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,15 @@ import java.util.List;
 @Service
 public class GroupServiceImpl implements GroupService {
     GroupRepository groupRepository;
+    StudentService studentService;
 
     @Autowired
-    public GroupServiceImpl(GroupRepository groupRepository) {
+    public GroupServiceImpl(GroupRepository groupRepository, StudentService studentService) {
         this.groupRepository = groupRepository;
+        this.studentService = studentService;
     }
+
+
 
     @Override
     public Group getGroupByGroupName(String name) {

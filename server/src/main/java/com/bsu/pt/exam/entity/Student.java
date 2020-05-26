@@ -36,11 +36,15 @@ public class Student {
     private Group group;
     @ManyToOne
     private Result result;
+    @OneToOne
+    private Priority priority;
 
-    public Student(String login,String password){
-        this.login=login;
-        this.password=password;
+    public Student(String login, String password) {
+        this.login = login;
+        this.password = password;
     }
+
+
 
 
 }

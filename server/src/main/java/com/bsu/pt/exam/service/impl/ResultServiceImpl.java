@@ -27,12 +27,12 @@ public class ResultServiceImpl implements ResultService {
         return resultRepository.save(result);
     }
 
-//    @Override
-//    public List<Student> getStudentList(String id) {
-//        Result result = getById(id);
-//        return result.getPriorities();
-//
-//    }
+    @Override
+    public List<Student> getStudentList(String id) {
+        Result result = getById(id);
+        return result.getStudents();
+
+    }
 
     @Override
     public Result getById(String id) {
