@@ -27,10 +27,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student setPriority(String studentId, PriorityDto priorityDto) {
         Student student = findById(studentId);
-        Integer len = student.getGroup().getStudents().size();
-        Priority priority = new Priority();
-        //TODo priority
-        return null;
+        Priority p = student.getPriority();
+        p.setPriorities(priorityDto.getPriority());
+        return student;
     }
 
     @Override

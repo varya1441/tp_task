@@ -1,12 +1,15 @@
+package com.bsu.pt.exam.algo;
+
 import java.util.Arrays;
+import java.util.List;
 
 public class AlgorithmExecution {
 
     public AlgorithmExecution() {
     }
 
-    public String[] getSolution(String[] studentsID, int[][] priorityMatrix) {
-        int n = studentsID.length;
+    public String[] getSolution(List<String> studentsID, int[][] priorityMatrix) {
+        int n = studentsID.size();
 
         //Max to min transform
         for (int i = 0; i < n; ++i) {
@@ -83,7 +86,7 @@ public class AlgorithmExecution {
         //Creating results
         for (int i = 1; i < n + 1; ++i) {
             int student_number = p[i] - 1;
-            solution[i - 1] = studentsID[student_number];
+            solution[i - 1] = studentsID.get(student_number);
         }
 
         return solution;

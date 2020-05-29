@@ -1,6 +1,7 @@
 package com.bsu.pt.exam.service.impl;
 
 import com.bsu.pt.exam.entity.Group;
+import com.bsu.pt.exam.entity.Role;
 import com.bsu.pt.exam.entity.Student;
 import com.bsu.pt.exam.exception.ItemNotFoundException;
 import com.bsu.pt.exam.repository.GroupRepository;
@@ -49,9 +50,9 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Student getGroupLeaderByGroupName(String id) {
+    public Student getGroupLeader(String id) {
         Group group = this.getGroupByGroupName(id);
-        return group.getGroupLeader();
+        return group.getStudents().stream().filter(s -> s.getRole().equals(Role.LEADER)).findFirst().orElseThrow(() -> new ItemNotFoundException("no groupLeader in group - " + id));
     }
 
     @Override

@@ -5,7 +5,6 @@ import com.bsu.pt.exam.dto.LoginRequest;
 import com.bsu.pt.exam.dto.RegisterRequest;
 import com.bsu.pt.exam.entity.Group;
 import com.bsu.pt.exam.entity.JwtToken;
-import com.bsu.pt.exam.entity.Role;
 import com.bsu.pt.exam.entity.Student;
 import com.bsu.pt.exam.exception.ItemNotFoundException;
 import com.bsu.pt.exam.security.JwtTokenProvider;
@@ -24,9 +23,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -59,15 +55,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Student student = createStudent(registerRequestModel);
         try {
             group = groupService.getGroupByGroupName(registerRequestModel.getGroupName());
-            group.setStudents(new ArrayList<>(Collections.singletonList(student)));
         } catch (ItemNotFoundException e) {
             group = new Group(registerRequestModel.getGroupName());
-            group.getStudents().add(student);
         }
-
-        if (registerRequestModel.getRole().equals(Role.LEADER)) {
-            group.setGroupLeader(student);
-        }
+        groupService.addGroup(group);
+        student.setGroup(group);
 
         return studentService.save(student);
     }
@@ -78,6 +70,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         newUser.setPassword(registerRequestModel.getPassword());
         newUser.setRole(registerRequestModel.getRole());
         newUser.setName(registerRequestModel.getName());
+        newUser.setLastName(registerRequestModel.getLastName());
         return newUser;
     }
 

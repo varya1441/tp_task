@@ -1,6 +1,8 @@
 package com.bsu.pt.exam.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +12,8 @@ import java.util.List;
 @Table(name = "sudent_group")
 @Data
 //Группа - название, список студентов, староста
+@NoArgsConstructor
+@AllArgsConstructor
 public class Group {
     @Id
     private String groupName;
@@ -21,8 +25,6 @@ public class Group {
             fetch = FetchType.EAGER
     )
     private List<Student> students = new ArrayList<>();
-    @OneToOne
-    private Student groupLeader;
 
     @OneToMany(
             cascade = CascadeType.ALL,
@@ -35,6 +37,7 @@ public class Group {
     public Group(String groupName) {
         this.groupName = groupName;
     }
+
 
     public List<Event> getEvents() {
         return events;
@@ -52,13 +55,6 @@ public class Group {
         this.students = students;
     }
 
-    public Student getGroupLeader() {
-        return groupLeader;
-    }
-
-    public void setGroupLeader(Student groupLeader) {
-        this.groupLeader = groupLeader;
-    }
 
     public String getGroupName() {
         return groupName;

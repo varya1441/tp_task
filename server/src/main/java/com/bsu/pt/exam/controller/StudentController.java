@@ -29,6 +29,7 @@ public class StudentController {
         return new ResponseEntity<List<Student>>(groupService.getStudentsByGroupName(groupName), HttpStatus.OK);
     }
 
+
     @PutMapping(value = "/u/{id}")
     public ResponseEntity<Student> setPriority(@PathVariable String id, @RequestBody PriorityDto priorityDto) {
         return new ResponseEntity<Student>(studentService.setPriority(id, priorityDto), HttpStatus.OK);

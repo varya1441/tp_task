@@ -8,7 +8,7 @@ import java.util.List;
 public interface GroupService {
     List<Student> getStudentsByGroupName(String id);
 
-    Student getGroupLeaderByGroupName(String id);
+    Student getGroupLeader(String id);
 
     Group getGroupByGroupName(String name);
 

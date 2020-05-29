@@ -1,5 +1,6 @@
 package com.bsu.pt.exam.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,6 +23,7 @@ public class Event {
     private String eventName;
     private LocalDate date;
     @ManyToOne(cascade = {CascadeType.ALL})
+    @JsonIgnore
     private Group group;
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true,

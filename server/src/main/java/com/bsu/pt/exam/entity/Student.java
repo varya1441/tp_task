@@ -1,6 +1,7 @@
 package com.bsu.pt.exam.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -31,16 +32,14 @@ public class Student {
 
     private Role role;
     @ManyToOne
+    @JsonIgnore
     private Group group;
     @ManyToOne
+    @JsonIgnore
     private Result result;
     @OneToOne
     private Priority priority;
 
-    public Student(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
 
 
 }
