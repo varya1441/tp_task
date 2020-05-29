@@ -13,11 +13,10 @@ import com.bsu.pt.exam.service.GroupService;
 import com.bsu.pt.exam.service.StudentService;
 import com.bsu.pt.exam.service.TokenStore;
 import io.jsonwebtoken.ExpiredJwtException;
-import org.apache.catalina.User;
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -84,7 +83,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = tokenProvider.generateToken(authentication);
-        final String refreshToken = tokenProvider.generateRefreshToken((User) authentication);
+        final String refreshToken = tokenProvider.generateRefreshToken(authentication);
         JwtToken jwtToken = new JwtToken(token, refreshToken);
         tokenStore.storeToken(jwtToken);
         return jwtToken;
@@ -98,7 +97,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             final Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             final String token = tokenProvider.generateToken(authentication);
-            final String newRefreshToken = tokenProvider.generateRefreshToken((User) authentication);
+            final String newRefreshToken = tokenProvider.generateRefreshToken(authentication);
             return new JwtToken(token, newRefreshToken);
         }
         return null;

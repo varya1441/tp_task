@@ -3,6 +3,7 @@ package com.bsu.pt.exam.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ public class Event {
 
     @Column(name = "event_name")
     private String eventName;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date;
     @ManyToOne(cascade = {CascadeType.ALL})
     @JsonIgnore

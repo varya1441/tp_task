@@ -1,10 +1,13 @@
 package com.bsu.pt.exam.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class EventDto {
 
     private String eventName;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date;
     private String groupName;
 

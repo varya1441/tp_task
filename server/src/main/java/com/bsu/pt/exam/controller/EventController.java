@@ -26,8 +26,8 @@ public class EventController {
         this.resultService = resultService;
     }
 
-    @PostMapping(value = "")
-    public ResponseEntity<Event> save(@RequestBody EventDto event) {
+    @PostMapping(value = "/u")
+    public ResponseEntity<Event> addEvent(@RequestBody EventDto event) {
         return new ResponseEntity<>(eventService.addEvent(event), HttpStatus.CREATED);
     }
 

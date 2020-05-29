@@ -28,12 +28,10 @@ public class JwtTokenProvider implements Serializable {
     public static final String HEADER_STRING = "Authorization";
     public static final String AUTHORITIES_KEY = "scopes";
 
-    TokenStoreImpl tokenStore;
 
     @Autowired
-    public JwtTokenProvider(TokenStoreImpl tokenStore) {
-        this.tokenStore = tokenStore;
-    }
+    TokenStoreImpl tokenStore;
+
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
@@ -73,9 +71,9 @@ public class JwtTokenProvider implements Serializable {
                 .compact();
     }
 
-    public String generateRefreshToken(User user) {
+    public String generateRefreshToken(Authentication user) {
         return Jwts.builder()
-                .setSubject(user.getUsername())
+                .setSubject(user.getName())
                 .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + REFRESH_TOKEN_VALIDITY_SECONDS * 1000))
