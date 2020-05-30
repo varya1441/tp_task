@@ -50,6 +50,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public Group getGroupByLogin(String name) {
+        return studentService.findByLogin(name).getGroup();
+    }
+
+    @Override
     public Student getGroupLeader(String id) {
         Group group = this.getGroupByGroupName(id);
         return group.getStudents().stream().filter(s -> s.getRole().equals(Role.LEADER)).findFirst().orElseThrow(() -> new ItemNotFoundException("no groupLeader in group - " + id));

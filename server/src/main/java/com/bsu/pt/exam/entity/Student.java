@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "student")
 //Пользователь - ФИО, логин, пароль, роль
-public class Student  {
+public class Student {
     public static final String DEFAULT_USER_LOGIN = "default";
     public static final String DEFAULT_USER_PASSWORD = "123456";
 
@@ -39,7 +39,6 @@ public class Student  {
     private Result result;
     @OneToOne
     private Priority priority;
-
 
 
 }

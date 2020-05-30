@@ -51,8 +51,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student update(String id, Student pUser) {
-        Student user = findById(id);
+    public Student update(String login, Student pUser) {
+        Student user = findByLogin(login);
         BeanUtils.copyProperties(pUser, user, "id", "password");
         return studentRepository.save(user);
     }

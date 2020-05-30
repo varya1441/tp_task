@@ -1,13 +1,11 @@
 package com.bsu.pt.exam.dto;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class PriorityDto {
     private String id;
-    private Map<Integer,Integer> priority=new TreeMap<>();
+    private Map<Integer, Integer> priority = new TreeMap<>();
 
     public String getId() {
         return id;

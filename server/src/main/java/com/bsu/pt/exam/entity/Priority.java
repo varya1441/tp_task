@@ -20,6 +20,6 @@ public class Priority {
     @OneToOne
     private Student student;
     @ElementCollection
-    Map<Integer,Integer> priorities=new TreeMap<>();
+    Map<Integer, Integer> priorities = new TreeMap<>();
 
 }

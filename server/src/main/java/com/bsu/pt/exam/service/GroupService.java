@@ -10,6 +10,8 @@ public interface GroupService {
 
     Student getGroupLeader(String id);
 
+    Group getGroupByLogin(String name);
+
     Group getGroupByGroupName(String name);
 
     boolean addStudent(String name, Student student);

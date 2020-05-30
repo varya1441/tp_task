@@ -1,6 +1,7 @@
 package com.bsu.pt.exam.controller;
 
 import com.bsu.pt.exam.dto.PriorityDto;
+import com.bsu.pt.exam.entity.Group;
 import com.bsu.pt.exam.entity.Student;
 import com.bsu.pt.exam.service.GroupService;
 import com.bsu.pt.exam.service.StudentService;
@@ -30,9 +31,14 @@ public class StudentController {
     }
 
 
-    @PutMapping(value = "/u/{id}")
-    public ResponseEntity<Student> setPriority(@PathVariable String id, @RequestBody PriorityDto priorityDto) {
-        return new ResponseEntity<Student>(studentService.setPriority(id, priorityDto), HttpStatus.OK);
+    @PutMapping(value = "/u/{login}")
+    public ResponseEntity<Student> setPriority(@PathVariable String login, @RequestBody PriorityDto priorityDto) {
+        return new ResponseEntity<Student>(studentService.setPriority(login, priorityDto), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/group/{login}")
+    public ResponseEntity<Group> getGroupByLogin(@PathVariable String login) {
+        return new ResponseEntity<Group>(groupService.getGroupByLogin(login), HttpStatus.OK);
     }
 
 
