@@ -34,6 +34,16 @@ public class Group {
     )
     private List<Event> events = new ArrayList<>();
 
+    private String inviteCode;
+
+    public String getInviteCode() {
+        return inviteCode;
+    }
+
+    public void setInviteCode(String inviteCode) {
+        this.inviteCode = inviteCode;
+    }
+
     public Group(String groupName) {
         this.groupName = groupName;
     }

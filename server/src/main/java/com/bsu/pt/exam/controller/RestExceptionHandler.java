@@ -1,5 +1,7 @@
 package com.bsu.pt.exam.controller;
 
+import com.bsu.pt.exam.exception.ItemNotFoundException;
+import com.bsu.pt.exam.exception.NoSuchInviteCodeOrUser;
 import com.bsu.pt.exam.exception.StudentValidationException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +22,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(StudentValidationException.class)
     protected ResponseEntity<ExceptionEntity> handleUserValidationException(final StudentValidationException e) {
         return new ResponseEntity<>(new ExceptionEntity(e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NoSuchInviteCodeOrUser.class)
+    protected ResponseEntity<ExceptionEntity> handleUserValidationException(final NoSuchInviteCodeOrUser e) {
+        return new ResponseEntity<>(new ExceptionEntity(e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ItemNotFoundException.class)
+    protected ResponseEntity<ExceptionEntity> handleExpiredJwtException(ItemNotFoundException e) {
+        return new ResponseEntity<>(new ExceptionEntity(e.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @Data

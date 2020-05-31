@@ -12,8 +12,24 @@ public class RegisterRequest {
 
     private String lastName;
 
-    private String role;
     private String groupName;
+
+    private String inviteCode;
+
+    private boolean leader;
+
+    public String getInviteCode() {
+        return inviteCode;
+    }
+
+    public void setInviteCode(String inviteCode) {
+        this.inviteCode = inviteCode;
+    }
+
+    public boolean isLeader() {
+        return leader;
+    }
+
 
     public String getGroupName() {
         return groupName;
@@ -56,14 +72,10 @@ public class RegisterRequest {
     }
 
     public Role getRole() {
-        if (!role.toUpperCase().equals("LEADER")) {
+        if (!leader) {
             return Role.STUDENT;
         } else {
             return Role.LEADER;
         }
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }

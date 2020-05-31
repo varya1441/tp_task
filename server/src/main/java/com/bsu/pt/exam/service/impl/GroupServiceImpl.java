@@ -4,9 +4,11 @@ import com.bsu.pt.exam.entity.Group;
 import com.bsu.pt.exam.entity.Role;
 import com.bsu.pt.exam.entity.Student;
 import com.bsu.pt.exam.exception.ItemNotFoundException;
+import com.bsu.pt.exam.exception.NoSuchInviteCodeOrUser;
 import com.bsu.pt.exam.repository.GroupRepository;
 import com.bsu.pt.exam.service.GroupService;
 import com.bsu.pt.exam.service.StudentService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,12 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public Group findGroupByInviteCoe(String code) {
+        return groupRepository.findByInviteCode(code)
+                .orElseThrow(() -> new NoSuchInviteCodeOrUser("invite code note found"));
+    }
+
+    @Override
     public Group getGroupByGroupName(String name) {
         return groupRepository.findById(name)
                 .orElseThrow(() -> new ItemNotFoundException("group with id - " + name + "not found"));
@@ -71,5 +79,11 @@ public class GroupServiceImpl implements GroupService {
         Group group = this.getGroupByGroupName(name);
         group.getStudents().add(student);
         return true;
+    }
+    @Override
+    public Group update(String name, Group group) {
+        Group uGroup = getGroupByGroupName(name);
+        BeanUtils.copyProperties(group, uGroup, "groupName");
+        return groupRepository.save(uGroup);
     }
 }

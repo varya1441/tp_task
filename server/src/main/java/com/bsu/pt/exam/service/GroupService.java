@@ -12,6 +12,8 @@ public interface GroupService {
 
     Group getGroupByLogin(String name);
 
+    Group findGroupByInviteCoe(String code);
+
     Group getGroupByGroupName(String name);
 
     boolean addStudent(String name, Student student);
@@ -19,4 +21,5 @@ public interface GroupService {
     Group getGroup(String groupName);
 
     Group addGroup(Group group);
+    Group update(String name, Group group);
 }

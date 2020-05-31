@@ -39,6 +39,29 @@ public class Student {
     private Result result;
     @OneToOne
     private Priority priority;
+    private boolean checkedInvite=false;
 
+    public Group getGroup() {
+        return group;
+    }
 
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", group=" + group.getGroupName() +
+                ", result=" + result +
+                ", priority=" + priority +
+                ", checkedInvite=" + checkedInvite +
+                '}';
+    }
 }
