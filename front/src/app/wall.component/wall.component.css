@@ -1,0 +1,46 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #F2EEE8;
+  font-family: 'Open Sans';
+}
+
+.parent {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  overflow: auto;
+}
+
+h1 {
+  font-weight: 800;
+  color: #383A41;
+  text-align: center;
+  font-size: 2.5em;
+  padding-top: 20px;
+}
+
+.btn {
+  font-family: "Open Sans";
+  font-weight: 400;
+  padding: 20px;
+  background-color: #5E7FDC;
+  color: white;
+  width: 320px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.2em;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 80px;
+  margin-bottom: 50px;
+  transition: all .2s linear;
+}
