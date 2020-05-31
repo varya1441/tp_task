@@ -35,6 +35,10 @@ public class StudentController {
     public ResponseEntity<Student> setPriority(@PathVariable String login, @RequestBody PriorityDto priorityDto) {
         return new ResponseEntity<Student>(studentService.setPriority(login, priorityDto), HttpStatus.OK);
     }
+    @GetMapping(value = "/{login}")
+    public ResponseEntity<Student> getStudent(@PathVariable String login) {
+        return new ResponseEntity<Student>(studentService.findByLogin(login), HttpStatus.OK);
+    }
 
     @GetMapping(value = "/group/{login}")
     public ResponseEntity<Group> getGroupByLogin(@PathVariable String login) {
