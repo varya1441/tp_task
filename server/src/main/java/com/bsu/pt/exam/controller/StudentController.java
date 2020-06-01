@@ -31,8 +31,8 @@ public class StudentController {
     }
 
     @PutMapping(value = "/{login}")
-    public ResponseEntity<Student> update(@PathVariable String login, @RequestBody Student student) {
-        return new ResponseEntity<Student>(studentService.update(login, student), HttpStatus.OK);
+    public ResponseEntity<Student> setChecked(@PathVariable String login) {
+        return new ResponseEntity<Student>(studentService.setChecked(login), HttpStatus.OK);
     }
 
 

@@ -15,7 +15,7 @@ public interface StudentService {
 
     Student save(Student user);
 
-    Student update(String id, Student pUser);
+    Student setChecked(String login);
 
     Student setPriority(String studentId, PriorityDto priorityDto);
 
