@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/student")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:4200")
 public class StudentController {
     private StudentService studentService;
     private GroupService groupService;
@@ -30,11 +30,17 @@ public class StudentController {
         return new ResponseEntity<List<Student>>(groupService.getStudentsByGroupName(groupName), HttpStatus.OK);
     }
 
+    @PutMapping(value = "/{login}")
+    public ResponseEntity<Student> update(@PathVariable String login, @RequestBody Student student) {
+        return new ResponseEntity<Student>(studentService.update(login, student), HttpStatus.OK);
+    }
 
-    @PutMapping(value = "/u/{login}")
+
+    @PutMapping(value = "/priority/{login}")
     public ResponseEntity<Student> setPriority(@PathVariable String login, @RequestBody PriorityDto priorityDto) {
         return new ResponseEntity<Student>(studentService.setPriority(login, priorityDto), HttpStatus.OK);
     }
+
     @GetMapping(value = "/{login}")
     public ResponseEntity<Student> getStudent(@PathVariable String login) {
         return new ResponseEntity<Student>(studentService.findByLogin(login), HttpStatus.OK);

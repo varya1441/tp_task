@@ -6,8 +6,6 @@ import com.bsu.pt.exam.dto.RegisterRequest;
 import com.bsu.pt.exam.entity.Group;
 import com.bsu.pt.exam.entity.JwtToken;
 import com.bsu.pt.exam.entity.Student;
-import com.bsu.pt.exam.exception.ItemNotFoundException;
-import com.bsu.pt.exam.exception.NoSuchInviteCodeOrUser;
 import com.bsu.pt.exam.security.JwtTokenProvider;
 import com.bsu.pt.exam.service.AuthenticationService;
 import com.bsu.pt.exam.service.GroupService;
@@ -24,8 +22,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.Charset;
-import java.util.List;
 import java.util.Random;
 
 @Service
@@ -82,8 +78,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 
         }
-
-        // groupService.update(group.getGroupName(),group);
         return group;
     }
 

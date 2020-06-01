@@ -80,6 +80,7 @@ public class GroupServiceImpl implements GroupService {
         group.getStudents().add(student);
         return true;
     }
+
     @Override
     public Group update(String name, Group group) {
         Group uGroup = getGroupByGroupName(name);

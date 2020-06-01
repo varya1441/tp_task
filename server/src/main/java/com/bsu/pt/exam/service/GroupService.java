@@ -21,5 +21,6 @@ public interface GroupService {
     Group getGroup(String groupName);
 
     Group addGroup(Group group);
+
     Group update(String name, Group group);
 }

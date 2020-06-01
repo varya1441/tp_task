@@ -1,6 +1,6 @@
 package com.bsu.pt.exam.exception;
 
-public class NoSuchInviteCodeOrUser extends RuntimeException{
+public class NoSuchInviteCodeOrUser extends RuntimeException {
     public NoSuchInviteCodeOrUser() {
     }
 
