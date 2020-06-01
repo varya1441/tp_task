@@ -69,12 +69,12 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event getEventByDate(LocalDate date) {
-        return null;
+        return eventRepository.getEventsByDate(date);
     }
 
     @Override
     public Result getEventResult(String id) {
-        return null;
+        return getEventById(id).getResult();
     }
 
     @Override

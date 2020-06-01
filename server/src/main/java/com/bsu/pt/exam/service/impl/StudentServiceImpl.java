@@ -44,16 +44,15 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student save(Student pUser) {
 
-
         String password = pUser.getPassword() != null ? pUser.getPassword() : Student.DEFAULT_USER_PASSWORD;
         pUser.setPassword(bCryptPasswordEncoder.encode(password));
         return studentRepository.save(pUser);
     }
 
     @Override
-    public Student update(String login, Student pUser) {
+    public Student setChecked(String login) {
         Student user = findByLogin(login);
-        BeanUtils.copyProperties(pUser, user, "id", "password");
+        user.setCheckedInvite(true);
         return studentRepository.save(user);
     }
 
