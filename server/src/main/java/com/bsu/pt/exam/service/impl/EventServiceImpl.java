@@ -76,4 +76,14 @@ public class EventServiceImpl implements EventService {
     public Result getEventResult(String id) {
         return null;
     }
+
+    @Override
+    public void deleteEvent(String id) {
+        Event eventToRemove = getEventById(id);
+        if (eventToRemove != null) {
+            eventRepository.delete(eventToRemove);
+        } else {
+            throw new ItemNotFoundException("No event to delete found with id" + id);
+        }
+    }
 }

@@ -39,7 +39,8 @@ public class Student {
     private Result result;
     @OneToOne
     private Priority priority;
-    private boolean checkedInvite = false;
+//    @Column(columnDefinition = "boolean default false")
+    private Boolean checkedInvite = false;
 
     public Group getGroup() {
         return group;

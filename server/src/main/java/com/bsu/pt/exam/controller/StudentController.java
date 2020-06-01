@@ -51,5 +51,12 @@ public class StudentController {
         return new ResponseEntity<Group>(groupService.getGroupByLogin(login), HttpStatus.OK);
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable String id) {
+        studentService.deleteStudent(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 
 }

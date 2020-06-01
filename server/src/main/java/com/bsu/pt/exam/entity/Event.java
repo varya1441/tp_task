@@ -35,4 +35,15 @@ public class Event {
     @OneToOne
     private Result result;
 
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id='" + id + '\'' +
+                ", eventName='" + eventName + '\'' +
+                ", date=" + date +
+                ", group=" + group.getGroupName() +
+                ", priorities=" + priorities +
+                ", result=" + result +
+                '}';
+    }
 }

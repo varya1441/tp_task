@@ -19,6 +19,6 @@ public interface StudentService {
 
     Student setPriority(String studentId, PriorityDto priorityDto);
 
-    void delete(String id);
+    void deleteStudent(String id);
 
 }

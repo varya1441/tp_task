@@ -20,4 +20,6 @@ public interface EventService {
     Result getEventResult(String id);
 
     Event addEvent(EventDto event) throws ItemNotFoundException;
+
+    void deleteEvent(String id);
 }
