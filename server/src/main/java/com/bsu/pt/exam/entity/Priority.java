@@ -14,10 +14,10 @@ import java.util.TreeMap;
 public class Priority {
     @Id
     private String id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Event event;
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     private Student student;
     @ElementCollection
     Map<Integer, Integer> priorities = new TreeMap<>();

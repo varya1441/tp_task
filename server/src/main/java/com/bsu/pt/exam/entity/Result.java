@@ -21,9 +21,9 @@ public class Result {
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             mappedBy = "result",
-            fetch = FetchType.EAGER
+            fetch = FetchType.LAZY
     )
     private List<Student> students = new ArrayList<>();
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     private Event event;
 }

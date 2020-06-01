@@ -59,14 +59,9 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public void deleteStudent(String id) {
-        Student studentToRemove = findById(id);
-        if (studentToRemove != null) {
-            studentRepository.delete(studentToRemove);
-        } else {
-            throw new ItemNotFoundException("No student to delete found with id" + id);
-        }
-
+    public void deleteStudent(String login) {
+        findByLogin(login);
+        studentRepository.deleteByLogin(login);
     }
 
     @Override

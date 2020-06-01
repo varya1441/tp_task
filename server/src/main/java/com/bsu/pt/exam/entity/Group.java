@@ -22,7 +22,7 @@ public class Group {
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             mappedBy = "group",
-            fetch = FetchType.EAGER
+            fetch = FetchType.LAZY
     )
     private List<Student> students = new ArrayList<>();
 
@@ -30,7 +30,7 @@ public class Group {
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             mappedBy = "group",
-            fetch = FetchType.EAGER
+            fetch = FetchType.LAZY
     )
     private List<Event> events = new ArrayList<>();
 
