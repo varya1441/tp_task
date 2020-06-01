@@ -6,7 +6,6 @@ import com.bsu.pt.exam.dto.RegisterRequest;
 import com.bsu.pt.exam.entity.Group;
 import com.bsu.pt.exam.entity.JwtToken;
 import com.bsu.pt.exam.entity.Student;
-import com.bsu.pt.exam.exception.ItemNotFoundException;
 import com.bsu.pt.exam.security.JwtTokenProvider;
 import com.bsu.pt.exam.service.AuthenticationService;
 import com.bsu.pt.exam.service.GroupService;
@@ -22,6 +21,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+
+import java.util.Random;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -49,18 +50,49 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public Student registration(RegisterRequest registerRequestModel) {
-        Group group;
-        Student student = createStudent(registerRequestModel);
-        try {
-            group = groupService.getGroupByGroupName(registerRequestModel.getGroupName());
-        } catch (ItemNotFoundException e) {
-            group = new Group(registerRequestModel.getGroupName());
-        }
-        groupService.addGroup(group);
-        student.setGroup(group);
+    public Student registration(RegisterRequest registerRequest) {
 
-        return studentService.save(student);
+        Student student = createStudent(registerRequest);
+        Group group = getStudentGroup(student, registerRequest);
+
+        student.setGroup(group);
+        studentService.save(student);
+
+        return student;
+    }
+
+    private Group getStudentGroup(Student student, RegisterRequest registerRequest) {
+        Group group;
+        if (!registerRequest.isLeader()) {
+
+            group = groupService.findGroupByInviteCoe(registerRequest.getInviteCode());
+
+
+        } else {
+
+            group = new Group(registerRequest.getGroupName());
+            group.setInviteCode(generateInviteCode());
+
+            groupService.addGroup(group);
+            student.setCheckedInvite(true);
+
+
+        }
+        return group;
+    }
+
+
+    private String generateInviteCode() {
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+
+        return random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
     }
 
     private Student createStudent(RegisterRequest registerRequestModel) {
