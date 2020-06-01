@@ -37,9 +37,9 @@ public class Student {
     @ManyToOne
     @JsonIgnore
     private Result result;
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     private Priority priority;
-//    @Column(columnDefinition = "boolean default false")
+    //    @Column(columnDefinition = "boolean default false")
     private Boolean checkedInvite = false;
 
     public Group getGroup() {

@@ -24,15 +24,15 @@ public class Event {
     private String eventName;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     @JsonIgnore
     private Group group;
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true,
             mappedBy = "event",
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     private List<Priority> priorities = new ArrayList<>();
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     private Result result;
 
     @Override
