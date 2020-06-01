@@ -59,7 +59,7 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public void delete(String id) {
+    public void deleteStudent(String id) {
         Student studentToRemove = findById(id);
         if (studentToRemove != null) {
             studentRepository.delete(studentToRemove);
