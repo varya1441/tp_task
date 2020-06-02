@@ -1,0 +1,29 @@
+[
+  {
+    "login": "varvara",
+    "password": "123456",
+    "name": "varya1",
+    "leader": "true",
+    "lastName": "ti",
+    "groupName": "2"
+  },
+  {
+    "login": "vvvvvvv",
+    "password": "123456",
+    "name": "varya1",
+    "leader": "false",
+    "lastName": "ti",
+    "inviteCode": "KzYtRTsDBQ",
+    "groupName": "2"
+  },
+  {
+    "eventName": "MO",
+    "date": "2020-12-12"
+  },
+  {
+    "priority": {
+      "1": 40,
+      "2": 60
+    }
+  }
+]

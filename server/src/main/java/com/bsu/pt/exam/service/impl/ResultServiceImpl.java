@@ -1,9 +1,11 @@
 package com.bsu.pt.exam.service.impl;
 
+import com.bsu.pt.exam.algo.AlgorithmExecution;
 import com.bsu.pt.exam.entity.Result;
 import com.bsu.pt.exam.entity.Student;
 import com.bsu.pt.exam.exception.ItemNotFoundException;
 import com.bsu.pt.exam.repository.ResultRepository;
+import com.bsu.pt.exam.service.GroupService;
 import com.bsu.pt.exam.service.ResultService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,12 @@ import java.util.List;
 @Service
 public class ResultServiceImpl implements ResultService {
     ResultRepository resultRepository;
+    GroupService groupService;
 
     @Autowired
-    public ResultServiceImpl(ResultRepository resultRepository) {
+    public ResultServiceImpl(ResultRepository resultRepository, GroupService groupService) {
         this.resultRepository = resultRepository;
+        this.groupService = groupService;
     }
 
 
@@ -38,6 +42,14 @@ public class ResultServiceImpl implements ResultService {
         Result result = getById(id);
         return result.getStudents();
 
+    }
+
+    public Result createResult(String groupName) {
+        Result result = new Result();
+        List<Student> students = groupService.getStudentsByGroupName(groupName);
+        new AlgorithmExecution().getSolution(students);
+        result.setStudents(students);
+        return result;
     }
 
     @Override

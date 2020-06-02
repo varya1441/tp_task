@@ -9,7 +9,6 @@ public class EventDto {
     private String eventName;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date;
-    private String groupName;
 
 
     public String getEventName() {
@@ -26,13 +25,5 @@ public class EventDto {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
     }
 }

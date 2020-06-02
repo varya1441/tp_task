@@ -34,16 +34,16 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event addEvent(EventDto eventDto) throws ItemNotFoundException {
+    public Event addEvent(String groupName, EventDto eventDto) {
         Event event = new Event();
         event.setDate(eventDto.getDate());
         event.setEventName(eventDto.getEventName());
         try {
-            Group group = groupService.getGroup(eventDto.getGroupName());
+            Group group = groupService.getGroup(groupName);
             event.setGroup(group);
 
         } catch (ItemNotFoundException e) {
-            throw new ItemNotFoundException("There is no group" + "with name" + eventDto.getGroupName());
+            throw new ItemNotFoundException("There is no group" + "with name" + groupName);
         }
         return save(event);
     }

@@ -1,5 +1,8 @@
 package com.bsu.pt.exam.algo;
 
+import com.bsu.pt.exam.entity.Student;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,8 +11,21 @@ public class AlgorithmExecution {
     public AlgorithmExecution() {
     }
 
-    public String[] getSolution(List<String> studentsID, int[][] priorityMatrix) {
-        int n = studentsID.size();
+    public String[] getSolution(List<Student> students) {
+        int n = students.size();
+        List<String> studentsID = new ArrayList<>();
+        Integer[][] priorityMatrix = new Integer[n][];
+        int index = 0;
+        for (Student s : students
+        ) {
+
+            studentsID.add(s.getLogin());
+            for (int i = 0; i < n; i++) {
+                priorityMatrix[index][i] = s.getPriority().getPriorities().get(index);
+                index++;
+
+            }
+        }
 
         //Max to min transform
         for (int i = 0; i < n; ++i) {
