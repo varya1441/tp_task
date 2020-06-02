@@ -38,6 +38,9 @@ public class StudentServiceImpl implements StudentService {
         }
         priority.setPriorities(priorityDto.getPriority());
         priority.setStudent(student);
+        priorityService.addPriority(priority);
+
+        student.setPriority(priority);
         update(student);
         return student;
     }

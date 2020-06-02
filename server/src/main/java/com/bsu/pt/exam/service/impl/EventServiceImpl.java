@@ -57,6 +57,13 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public Event getEventByName(String name) {
+        return eventRepository.getEventsByEventName(name)
+                .orElseThrow(() -> new ItemNotFoundException("event with name - " + name + "not found"));
+
+    }
+
+    @Override
     public Event update(String id, Event event) {
         return null;
     }

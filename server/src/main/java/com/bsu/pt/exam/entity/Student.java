@@ -60,7 +60,7 @@ public class Student {
                 ", role=" + role +
                 ", group=" + group.getGroupName() +
                 ", result=" + result +
-                ", priority=" + priority.getPriorities() +
+                ", priority=" + priority.getPriorities()+
                 ", checkedInvite=" + checkedInvite +
                 '}';
     }

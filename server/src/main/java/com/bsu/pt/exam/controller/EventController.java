@@ -58,8 +58,8 @@ public class EventController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/result/{groupName}")
-    public ResponseEntity<Result> createResult(@PathVariable String groupName) {
-        return new ResponseEntity<>(resultService.createResult(groupName), HttpStatus.CREATED);
+    @GetMapping(value = "/{eventName}/result/{groupName}")
+    public ResponseEntity<Result> createResult(@PathVariable String groupName,@PathVariable String eventName) {
+        return new ResponseEntity<>(resultService.createResult(eventName,groupName), HttpStatus.CREATED);
     }
 }

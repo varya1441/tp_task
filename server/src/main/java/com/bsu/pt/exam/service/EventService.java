@@ -21,4 +21,5 @@ public interface EventService {
     Event addEvent(String groupName, EventDto event);
 
     void deleteEvent(String id);
+    Event getEventByName(String name);
 }

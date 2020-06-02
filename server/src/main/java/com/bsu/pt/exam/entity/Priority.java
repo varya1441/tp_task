@@ -21,6 +21,7 @@ public class Priority {
     @JsonIgnore
     private Event event;
     @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonIgnore
     private Student student;
     @ElementCollection
     @CollectionTable(joinColumns = @JoinColumn(name = "priority_id"))
@@ -32,7 +33,7 @@ public class Priority {
                 "id='" + id + '\'' +
                 ", event=" + event +
                 ", student=" + student.getLogin() +
-                ", priorities=" + priorities +
+                ", priorities=" + priorities.toString() +
                 '}';
     }
 }

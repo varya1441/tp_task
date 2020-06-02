@@ -1,6 +1,9 @@
 package com.bsu.pt.exam.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -11,6 +14,8 @@ import java.util.List;
 @Entity
 @Table(name = "result")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Result {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -26,4 +31,13 @@ public class Result {
     private List<Student> students = new ArrayList<>();
     @OneToOne(orphanRemoval = true)
     private Event event;
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "id='" + id + '\'' +
+                ", students=" + students +
+                ", event=" + event.getEventName() +
+                '}';
+    }
 }

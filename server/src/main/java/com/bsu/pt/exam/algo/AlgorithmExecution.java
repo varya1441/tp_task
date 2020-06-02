@@ -11,36 +11,36 @@ public class AlgorithmExecution {
     public AlgorithmExecution() {
     }
 
-    public String[] getSolution(List<Student> students) {
+    public List<String> getSolution(List<Student> students) {
         int n = students.size();
         List<String> studentsID = new ArrayList<>();
-        Integer[][] priorityMatrix = new Integer[n][];
+        List<List<Integer>> priorityMatrix = new ArrayList<>();
         int index = 0;
         for (Student s : students
         ) {
 
             studentsID.add(s.getLogin());
-            for (int i = 0; i < n; i++) {
-                priorityMatrix[index][i] = s.getPriority().getPriorities().get(index);
-                index++;
 
-            }
+            priorityMatrix.add(new ArrayList<>(s.getPriority().getPriorities().values()));
+            index++;
+
+
         }
 
         //Max to min transform
         for (int i = 0; i < n; ++i) {
             int max = 0;
             for (int j = 0; j < n; ++j) {
-                if (priorityMatrix[i][j] > max) {
-                    max = priorityMatrix[i][j];
+                if (priorityMatrix.get(i).get(j) > max) {
+                    max = priorityMatrix.get(i).get(j);
                 }
             }
             for (int j = 0; j < n; ++j) {
-                priorityMatrix[i][j] = max - priorityMatrix[i][j];
+                priorityMatrix.get(i).set(j, max - priorityMatrix.get(i).get(j));
             }
         }
 
-        String[] solution = new String[n];
+        List<String> solution = new ArrayList<>(n);
         double[] u = new double[n + 1];
         double[] v = new double[n + 1];
         int[] p = new int[n + 1];
@@ -66,7 +66,7 @@ public class AlgorithmExecution {
 
                 for (int j = 1; j < n + 1; ++j) {
                     if (!used[j]) {
-                        double current = priorityMatrix[i0 - 1][j - 1] - u[i0] - v[j];
+                        double current = priorityMatrix.get(i0 - 1).get(j - 1) - u[i0] - v[j];
 
                         if (current < minV[j]) {
                             minV[j] = current;
@@ -102,7 +102,7 @@ public class AlgorithmExecution {
         //Creating results
         for (int i = 1; i < n + 1; ++i) {
             int student_number = p[i] - 1;
-            solution[i - 1] = studentsID.get(student_number);
+            solution.add(i-1,studentsID.get(student_number));
         }
 
         return solution;
