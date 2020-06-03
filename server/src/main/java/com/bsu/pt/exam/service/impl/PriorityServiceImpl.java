@@ -26,4 +26,5 @@ public class PriorityServiceImpl implements PriorityService {
     public Priority addPriority(Priority priority) {
         return priorityRepository.save(priority);
     }
+
 }

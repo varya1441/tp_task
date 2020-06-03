@@ -68,7 +68,9 @@ public class Group {
         return groupName;
     }
 
+
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
+
 }

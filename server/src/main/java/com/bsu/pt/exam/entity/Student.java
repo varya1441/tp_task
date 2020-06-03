@@ -8,12 +8,13 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
 @NoArgsConstructor
 @Table(name = "student")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //Пользователь - ФИО, логин, пароль, роль
 public class Student {
     public static final String DEFAULT_USER_LOGIN = "default";
@@ -33,14 +34,14 @@ public class Student {
     private String password;
 
     private Role role;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JsonIgnore
     private Group group;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JsonIgnore
     private Result result;
-    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-    private Priority priority;
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Priority> priorities =new ArrayList<>();
     private Boolean checkedInvite = false;
 
     public Group getGroup() {
@@ -50,7 +51,6 @@ public class Student {
     public void setGroup(Group group) {
         this.group = group;
     }
-
     @Override
     public String toString() {
         return "Student{" +
@@ -61,9 +61,10 @@ public class Student {
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 ", group=" + group.getGroupName() +
-                ", result=" + result +
-                ", priority=" + priority.getPriorities()+
+                ", result=" + result.getId() +
+                ", priority=" +
                 ", checkedInvite=" + checkedInvite +
                 '}';
     }
+
 }
