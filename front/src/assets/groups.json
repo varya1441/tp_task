@@ -2,6 +2,7 @@
   {
     "groupId": "idGroup_03",
     "groupName": "group_03",
+    "invite_code": "ddd",
     "leader": {
       "id": "a",
       "name": "Nikita",

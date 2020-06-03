@@ -17,6 +17,7 @@ export class SignupComponent{
   surname: string = "";
   leader: boolean = false;
   inviteCode: string = "";
+  groupName: string = "";
 
   errorState: boolean = false;
   errorMessage: string = "";
@@ -29,14 +30,9 @@ export class SignupComponent{
               private router: Router) {}
 
   validate() {
-    if(this.name == "" || this.surname == "" || this.login == "" || this.password == ""){
+    if(this.name == "" || this.surname == "" || this.login == "" || this.password == "" || (this.leader == true && this.groupName == "")){
       this.errorState = true;
       this.errorMessage = "Please, fill all fields";
-      return false;
-    }
-    else if(this.leader == false && this.groupService.validateGroup(this.inviteCode) == null){
-      this.errorState = true;
-      this.errorMessage = "Invalid invite code";
       return false;
     }
     else{
@@ -50,16 +46,35 @@ export class SignupComponent{
       this.student.lastName = this.surname;
       this.student.login = this.login;
       this.student.password = this.password;
-
       if(this.leader){
         this.student.role = "LEADER";
+        this.student.checkedInvite = true;
       }
       else{
         this.student.role = "STUDENT";
+        this.student.checkedInvite = false;
       }
 
-      this.studentService.addStudent(this.inviteCode, this.student);
-      this.router.navigate([''])
+
+      this.studentService.addStudent(this.inviteCode, this.groupName, this.student).subscribe(data => {
+        if(data.hasOwnProperty("message")){
+          this.errorState = true;
+          this.errorMessage = "Invalid invite code";
+        }
+        else{
+          if(this.leader){
+            this.router.navigate([`/main/${this.login}`]);
+          }
+          else{
+            this.router.navigate(['signupsuccess']);
+          }
+        }
+      },
+        error => {
+          this.errorState = true;
+          this.errorMessage = "Invalid invite code";
+      });
+
     }
   }
 }

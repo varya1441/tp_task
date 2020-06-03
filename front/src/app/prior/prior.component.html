@@ -1,0 +1,47 @@
+<mat-card class="example-result-card" style="width: 80%; margin-top: 20px">
+  <mat-card-content>
+    <h2 class="example-h2" style="text-align: center; font-weight: bold; font-size: 16pt;">
+      Here you can edit your priorities for {{this.eventName}}
+    </h2>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="example-result-card">
+  <mat-card-content>
+    <h2 style="margin-bottom: 20px; text-align: center">Priorities</h2>
+
+    <!--<div class="form" >
+      <div *ngFor="let p of values; let i = index;">
+        <mat-form-field color="accent">
+          <input matInput class="form-control" placeholder="Prior+{{i}}" [(ngModel)]="p.val"
+                 name="name+{{i}}" type="number" min="1" max="5" (keydown)="$event.preventDefault();">
+        </mat-form-field>
+      </div>
+
+    </div>-->
+    <label *ngFor="let p of values; let i = index;" class="labelslider">{{i}}</label>
+
+    <div>
+      <mat-slider *ngFor="let p of values; let i = index;"
+                  class="example-margin"
+                  [displayWith]=""
+                  [max]=5
+                  [min]=1
+                  [step]=1
+                  [thumbLabel]=true
+                  [tickInterval]=1
+                  [(ngModel)]="p.val"
+                  [vertical]=true>
+      </mat-slider>
+    </div>
+
+
+  <div style="margin-top: 15px">
+    <button mat-raised-button color="primary" style="margin-left: 26px" (click)="save()">Save</button>
+
+    <button mat-raised-button color="primary" style="margin-left: 18px" (click)="cancel()">Back</button>
+  </div>
+
+
+  </mat-card-content>
+</mat-card>

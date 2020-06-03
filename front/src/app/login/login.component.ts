@@ -3,6 +3,9 @@ import {StudentService} from "../services/student.service";
 import {Router} from "@angular/router";
 import {Group} from "../objects/Group";
 import {Student} from "../objects/Student";
+import {LoginService} from "../services/login.service";
+import * as jwt_decode from 'jwt-decode';
+import {Token} from "../objects/token";
 
 @Component({
   selector: 'app-login-component',
@@ -12,23 +15,49 @@ import {Student} from "../objects/Student";
 export class LoginComponent{
   public login: string = "";
   public password: string = "";
-  public errorState: boolean = false;
+  public role = "";
+
+  public errorState: string = "";
 
   group: Group;
   student: Student;
 
   constructor(private studentService: StudentService,
+              private loginService: LoginService,
               private router: Router) {}
 
   submit() {
-    this.student = this.studentService.validateStudent(this.login, this.password);
-    if(this.student != null){
-      this.group = this.studentService.getGroup(this.student.id);
-      this.router.navigate([`/group/${this.group.groupId}`])
-    }
-    else{
-      this.errorState = true;
-    }
+    this.loginService.validateStudent(this.login, this.password).subscribe(
+      (token:Token) => {
+      this.password = "";
+      this.login = jwt_decode(token.accessToken).sub;
+
+      this.studentService.getStudentByLogin(this.login).subscribe((stud:Student) => {
+        this.student = stud;
+        if(this.student.checkedInvite == true){
+          this.router.navigate([`/main/${jwt_decode(token.accessToken).sub}`]);
+        }
+        else{
+          this.router.navigate([`/notconfirmed`]);
+        }
+        this.student = null;
+        this.login = "";
+      });
+
+    },
+        error => {
+      if(error.error.status === 403){
+        this.errorState = "Invalid username or password";
+      }
+      else if(this.login == "" || this.password == ""){
+        this.errorState = "Please, fill all fields";
+      }
+      else{
+        this.errorState = "Sorry, something gone wrong :(";
+      }
+      this.password = "";
+      this.login = "";
+    });
   }
 
   register(){

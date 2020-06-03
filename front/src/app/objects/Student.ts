@@ -7,4 +7,5 @@ export class Student{
   login: string;
   password: string;
   role: string;
+  checkedInvite: boolean;
 }

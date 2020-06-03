@@ -12,19 +12,19 @@
 
         <div class="form">
           <mat-form-field color="accent">
-            <input matInput (click)="errorState = false" class="form-control" placeholder="Login" autocomplete="off"
+            <input matInput (click)=" errorState = '' " class="form-control" placeholder="Login" autocomplete="off"
                    [(ngModel)]="login" name="login">
           </mat-form-field>
         </div>
 
         <div class="form">
           <mat-form-field color="accent">
-            <input matInput (click)="errorState = false" type="password" class="form-control" placeholder="Password" [(ngModel)]="password" name="password">
+            <input matInput (click)=" errorState = '' " type="password" class="form-control" placeholder="Password" [(ngModel)]="password" name="password">
           </mat-form-field>
         </div>
 
-        <div *ngIf="errorState" class="errorBlock">
-          Invalid username or password
+        <div *ngIf=" errorState != '' " class="errorBlock">
+          {{errorState}}
         </div>
 
         <div class="container-login100-form-btn">
