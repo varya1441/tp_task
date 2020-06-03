@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -36,10 +37,9 @@ public class Event implements Serializable {
     @JsonIgnore
     private Group group;
     @OneToMany(cascade = CascadeType.ALL,
-            orphanRemoval = true,
             mappedBy = "event")
     private List<Priority> priorities = new ArrayList<>();
-    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToOne( cascade = CascadeType.ALL)
     @JsonIgnore
     private Result result;
 

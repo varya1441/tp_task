@@ -22,11 +22,11 @@ public class AlgorithmExecution {
         ) {
 
             studentsID.add(s.getLogin());
-            Priority priority = s.getPriorities().get(0);
-            if (priority == null) {
+//            Priority priority = s.getPriorities().get(0);
+            if (s.getPriorities().size() == 0) {
                 priorityMatrix.add(new ArrayList<Integer>(Collections.nCopies(n, 0)));
             } else {
-                priorityMatrix.add(new ArrayList<>(priority.getPriorities().values()));
+                priorityMatrix.add(new ArrayList<>(s.getPriorities().get(0).getPriorities().values()));
             }
             index++;
 

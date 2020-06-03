@@ -42,11 +42,6 @@ public class EventController {
         return new ResponseEntity<List<Event>>(eventService.getAllByGroupName(groupName), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{eventId}/result")
-    public ResponseEntity<Result> getResult(@PathVariable String eventId) {
-
-        return new ResponseEntity<Result>(resultService.getResultByEventId(eventId), HttpStatus.OK);
-    }
 
     @PutMapping(value = "/result/{resultId}")
     public ResponseEntity<Result> updateResult(@PathVariable String resultId, @RequestBody Result result) {
@@ -67,6 +62,11 @@ public class EventController {
     @GetMapping(value = "/{eventName}/result/{groupName}")
     public ResponseEntity<Result> createResult(@PathVariable String groupName, @PathVariable String eventName) {
         return new ResponseEntity<>(resultService.createResult(eventName, groupName), HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/{eventName}/result")
+    public ResponseEntity<Result> getResult(@PathVariable String eventName) {
+        return new ResponseEntity<>(resultService.getResultByEventId(eventName), HttpStatus.CREATED);
     }
 
 

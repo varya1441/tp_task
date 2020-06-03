@@ -59,8 +59,13 @@ public class StudentController {
     }
 
     @GetMapping(value = "{eventName}/priority/{login}")
-    public ResponseEntity<Priority> getGroupByLogin(@PathVariable String eventName, @PathVariable String login) {
+    public ResponseEntity<Priority> getStudentPriority(@PathVariable String eventName, @PathVariable String login) {
         return new ResponseEntity<Priority>(studentService.getStudentPriority(login, eventName), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/priority/u/{login}")
+    public ResponseEntity<Priority> updatePriority(@PathVariable String login, @RequestBody PriorityDto priorityDto) {
+        return new ResponseEntity<Priority>(studentService.updatePriority(login, priorityDto), HttpStatus.OK);
     }
 
 

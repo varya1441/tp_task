@@ -27,4 +27,9 @@ public class PriorityServiceImpl implements PriorityService {
         return priorityRepository.save(priority);
     }
 
+    @Override
+    public Priority update(Priority priority) {
+
+        return priorityRepository.save(priority);
+    }
 }
