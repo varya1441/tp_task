@@ -37,19 +37,12 @@ public class ResultServiceImpl implements ResultService {
         return resultRepository.getResultByEventId(eventId);
     }
 
-    //TODO
     @Override
     public Result updateResult(Result pResult) {
 
         return resultRepository.save(pResult);
     }
 
-    @Override
-    public List<Student> getStudentList(String id) {
-        Result result = getById(id);
-        return result.getStudents();
-
-    }
 
     public Result createResult(String eventName, String groupName) {
         Event event = eventService.getEventByName(eventName);

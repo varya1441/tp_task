@@ -5,15 +5,8 @@ import com.bsu.pt.exam.entity.Group;
 import com.bsu.pt.exam.entity.Priority;
 import com.bsu.pt.exam.entity.Student;
 
-import java.util.List;
-
 public interface StudentService {
     Student findByLogin(String login);
-
-    Student findById(String id);
-
-    List<Student> getAll();
-
 
     Student save(Student user);
 
@@ -24,7 +17,9 @@ public interface StudentService {
     Student setPriority(String studentId, PriorityDto priorityDto);
 
     void deleteStudent(String id);
+
     Group getGroupByLogin(String name);
+
     Priority getStudentPriority(String login, String eventName);
 
 }

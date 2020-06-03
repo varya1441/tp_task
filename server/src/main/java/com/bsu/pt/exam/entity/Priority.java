@@ -26,7 +26,7 @@ public class Priority {
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     private Event event;
-    @ManyToOne( cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     private Student student;
     @ElementCollection
@@ -37,7 +37,7 @@ public class Priority {
     public String toString() {
         return "Priority{" +
                 "id='" + id + '\'' +
-                ", event=" + event.getEventName()+
+                ", event=" + event.getEventName() +
                 ", student=" + student.getLogin() +
                 ", priorities=" + priorities.toString() +
                 '}';

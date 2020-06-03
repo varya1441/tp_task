@@ -1,11 +1,10 @@
 package com.bsu.pt.exam.controller;
 
 import com.bsu.pt.exam.dto.EventDto;
-import com.bsu.pt.exam.dto.PriorityDto;
-import com.bsu.pt.exam.entity.*;
+import com.bsu.pt.exam.entity.Event;
+import com.bsu.pt.exam.entity.Result;
 import com.bsu.pt.exam.service.EventService;
 import com.bsu.pt.exam.service.ResultService;
-import com.bsu.pt.exam.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +32,9 @@ public class EventController {
         return new ResponseEntity<>(eventService.addEvent(groupName, event), HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Event> getEventById(@PathVariable String id) {
-        return new ResponseEntity<Event>(eventService.getEventById(id), HttpStatus.OK);
+    @GetMapping(value = "/{eventName}")
+    public ResponseEntity<Event> getEventById(@PathVariable String eventName) {
+        return new ResponseEntity<Event>(eventService.getEventByName(eventName), HttpStatus.OK);
     }
 
     @GetMapping(value = "/all/{groupName}")
@@ -59,9 +58,9 @@ public class EventController {
         return new ResponseEntity<Event>(eventService.updateEvent(eventId, eventDto), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id) {
-        eventService.deleteEvent(id);
+    @DeleteMapping(value = "/{eventName}")
+    public ResponseEntity<?> delete(@PathVariable String eventName) {
+        eventService.deleteEvent(eventName);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

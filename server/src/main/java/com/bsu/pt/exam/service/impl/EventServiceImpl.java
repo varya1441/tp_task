@@ -3,8 +3,6 @@ package com.bsu.pt.exam.service.impl;
 import com.bsu.pt.exam.dto.EventDto;
 import com.bsu.pt.exam.entity.Event;
 import com.bsu.pt.exam.entity.Group;
-import com.bsu.pt.exam.entity.Priority;
-import com.bsu.pt.exam.entity.Result;
 import com.bsu.pt.exam.exception.ItemNotFoundException;
 import com.bsu.pt.exam.repository.EventRepository;
 import com.bsu.pt.exam.service.EventService;
@@ -12,7 +10,6 @@ import com.bsu.pt.exam.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -65,8 +62,8 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event updateEvent(String eventId, EventDto event) {
-        Event event1 = getEventById(eventId);
+    public Event updateEvent(String eventName, EventDto event) {
+        Event event1 = getEventByName(eventName);
         event1.setEventName(event.getEventName());
         event1.setDate(event.getDate());
         return eventRepository.save(event1);
@@ -79,22 +76,12 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event getEventByDate(LocalDate date) {
-        return eventRepository.getEventsByDate(date);
-    }
-
-    @Override
-    public Result getEventResult(String id) {
-        return getEventById(id).getResult();
-    }
-
-    @Override
-    public void deleteEvent(String id) {
-        Event eventToRemove = getEventById(id);
+    public void deleteEvent(String eventName) {
+        Event eventToRemove = getEventByName(eventName);
         if (eventToRemove != null) {
             eventRepository.delete(eventToRemove);
         } else {
-            throw new ItemNotFoundException("No event to delete found with id" + id);
+            throw new ItemNotFoundException("No event to delete found with eventName" + eventName);
         }
     }
 

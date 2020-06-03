@@ -1,15 +1,9 @@
 package com.bsu.pt.exam.service;
 
 import com.bsu.pt.exam.entity.Result;
-import com.bsu.pt.exam.entity.Student;
-import com.bsu.pt.exam.exception.ItemNotFoundException;
-
-import java.util.List;
 
 public interface ResultService {
     Result updateResult(Result uResult);
-
-    List<Student> getStudentList(String id) throws ItemNotFoundException;
 
     Result getResultByEventId(String eventId);
 

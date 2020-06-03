@@ -2,7 +2,6 @@ package com.bsu.pt.exam.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -41,7 +40,7 @@ public class Student {
     @JsonIgnore
     private Result result;
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Priority> priorities =new ArrayList<>();
+    private List<Priority> priorities = new ArrayList<>();
     private Boolean checkedInvite = false;
 
     public Group getGroup() {
@@ -51,6 +50,7 @@ public class Student {
     public void setGroup(Group group) {
         this.group = group;
     }
+
     @Override
     public String toString() {
         return "Student{" +
