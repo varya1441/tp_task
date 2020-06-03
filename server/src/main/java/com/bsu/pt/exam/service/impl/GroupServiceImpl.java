@@ -17,13 +17,12 @@ import java.util.List;
 @Service
 public class GroupServiceImpl implements GroupService {
     GroupRepository groupRepository;
-    StudentService studentService;
+
 
 
     @Autowired
-    public GroupServiceImpl(GroupRepository groupRepository, StudentService studentService) {
+    public GroupServiceImpl(GroupRepository groupRepository) {
         this.groupRepository = groupRepository;
-        this.studentService = studentService;
     }
 
     @Override
@@ -57,10 +56,7 @@ public class GroupServiceImpl implements GroupService {
                 .orElseThrow(() -> new ItemNotFoundException("group with id - " + name + "not found"));
     }
 
-    @Override
-    public Group getGroupByLogin(String name) {
-        return studentService.findByLogin(name).getGroup();
-    }
+
 
     @Override
     public Student getGroupLeader(String id) {

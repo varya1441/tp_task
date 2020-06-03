@@ -1,10 +1,11 @@
 package com.bsu.pt.exam.controller;
 
 import com.bsu.pt.exam.dto.EventDto;
-import com.bsu.pt.exam.entity.Event;
-import com.bsu.pt.exam.entity.Result;
+import com.bsu.pt.exam.dto.PriorityDto;
+import com.bsu.pt.exam.entity.*;
 import com.bsu.pt.exam.service.EventService;
 import com.bsu.pt.exam.service.ResultService;
+import com.bsu.pt.exam.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,7 @@ public class EventController {
         this.eventService = eventService;
         this.resultService = resultService;
     }
+
 
     @PostMapping(value = "/{groupName}")
     public ResponseEntity<Event> addEvent(@PathVariable String groupName, @RequestBody EventDto event) {
@@ -49,7 +51,12 @@ public class EventController {
 
     @PutMapping(value = "/result/{resultId}")
     public ResponseEntity<Result> updateResult(@PathVariable String resultId, @RequestBody Result result) {
-        return new ResponseEntity<Result>(resultService.updateResult(resultId, result), HttpStatus.OK);
+        return new ResponseEntity<Result>(resultService.updateResult(result), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/event/{eventId}")
+    public ResponseEntity<Event> updateEvent(@PathVariable String eventId, @RequestBody EventDto eventDto) {
+        return new ResponseEntity<Event>(eventService.updateEvent(eventId, eventDto), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
@@ -59,7 +66,9 @@ public class EventController {
     }
 
     @GetMapping(value = "/{eventName}/result/{groupName}")
-    public ResponseEntity<Result> createResult(@PathVariable String groupName,@PathVariable String eventName) {
-        return new ResponseEntity<>(resultService.createResult(eventName,groupName), HttpStatus.CREATED);
+    public ResponseEntity<Result> createResult(@PathVariable String groupName, @PathVariable String eventName) {
+        return new ResponseEntity<>(resultService.createResult(eventName, groupName), HttpStatus.CREATED);
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.bsu.pt.exam.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Table(name = "student")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //Пользователь - ФИО, логин, пароль, роль
 public class Student {
     public static final String DEFAULT_USER_LOGIN = "default";
@@ -31,13 +33,13 @@ public class Student {
     private String password;
 
     private Role role;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Group group;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Result result;
-    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private Priority priority;
     private Boolean checkedInvite = false;
 

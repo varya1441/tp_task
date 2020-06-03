@@ -10,8 +10,6 @@ public interface GroupService {
 
     Student getGroupLeader(String id);
 
-    Group getGroupByLogin(String name);
-
     Group findGroupByInviteCoe(String code);
 
     Group getGroupByGroupName(String name);
