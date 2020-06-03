@@ -6,4 +6,5 @@ public interface PriorityService {
     Priority getPriorityById(String id);
 
     Priority addPriority(Priority priority);
+    Priority update(Priority priority);
 }

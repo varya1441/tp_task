@@ -22,4 +22,5 @@ public interface StudentService {
 
     Priority getStudentPriority(String login, String eventName);
 
+    Priority updatePriority(String login, PriorityDto priorityDto);
 }

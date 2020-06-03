@@ -105,4 +105,12 @@ public class StudentServiceImpl implements StudentService {
 
 
     }
+
+    @Override
+    public Priority updatePriority(String login, PriorityDto priorityDto) {
+        Priority priority=getStudentPriority(login,priorityDto.getEventName());
+        priority.setPriorities(priorityDto.getPriority());
+        priorityService.update(priority);
+        return priority;
+    }
 }

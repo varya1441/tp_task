@@ -20,14 +20,12 @@ public class Group {
     // @NotEmpty
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
             mappedBy = "group"
     )
     private List<Student> students = new ArrayList<>();
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
             mappedBy = "group"
     )
     private List<Event> events = new ArrayList<>();

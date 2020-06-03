@@ -39,7 +39,7 @@ public class Student {
     @ManyToOne
     @JsonIgnore
     private Result result;
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
     private List<Priority> priorities = new ArrayList<>();
     private Boolean checkedInvite = false;
 

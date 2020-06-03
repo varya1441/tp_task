@@ -33,8 +33,10 @@ public class ResultServiceImpl implements ResultService {
 
 
     @Override
-    public Result getResultByEventId(String eventId) {
-        return resultRepository.getResultByEventId(eventId);
+    public Result getResultByEventId(String eventName) {
+        Event event=eventService.getEventByName(eventName);
+        return resultRepository.getResultByEvent(event)
+                .orElseThrow(() -> new ItemNotFoundException("result with name - " + eventName + " not found"));
     }
 
     @Override
@@ -46,9 +48,16 @@ public class ResultServiceImpl implements ResultService {
 
     public Result createResult(String eventName, String groupName) {
         Event event = eventService.getEventByName(eventName);
-        Result result = new Result();
-        result.setEvent(event);
-        save(result);
+        Result result;
+        if(event.getResult()==null){
+            result = new Result();
+            result.setEvent(event);
+            save(result);
+        }else {
+            result=event.getResult();
+        }
+
+
 
         List<Student> students = groupService.getStudentsByGroupName(groupName);
         List<String> resultStudentLogins = new AlgorithmExecution().getSolution(students);

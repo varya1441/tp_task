@@ -27,11 +27,10 @@ public class Result implements Serializable {
     // @NotEmpty
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
             mappedBy = "result"
     )
     private List<Student> students = new ArrayList<>();
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
     private Event event;
 
     @Override
