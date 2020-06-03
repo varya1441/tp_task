@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface EventRepository extends JpaRepository<Event, String> {
     Event getEventsByDate(LocalDate date);
+
     Optional<Event> getEventsByEventName(String name);
 
     List<Event> getAllByGroupGroupName(String groupName);

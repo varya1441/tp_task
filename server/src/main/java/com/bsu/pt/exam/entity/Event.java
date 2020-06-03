@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,7 +25,7 @@ public class Event implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column( insertable = false, updatable = false)
+    @Column(insertable = false, updatable = false)
     private String id;
 
     @Column(name = "event_name")
@@ -40,7 +39,7 @@ public class Event implements Serializable {
             orphanRemoval = true,
             mappedBy = "event")
     private List<Priority> priorities = new ArrayList<>();
-    @OneToOne(orphanRemoval = true,cascade = CascadeType.ALL)
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonIgnore
     private Result result;
 

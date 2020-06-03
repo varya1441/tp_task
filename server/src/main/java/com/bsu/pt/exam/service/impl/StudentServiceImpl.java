@@ -14,9 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
@@ -54,14 +51,6 @@ public class StudentServiceImpl implements StudentService {
         return priority;
     }
 
-    @Override
-    public List<Student> getAll() {
-        List<Student> users = studentRepository.findAll();
-        if (users.size() <= 0) {
-            throw new ItemNotFoundException("No users found");
-        }
-        return users;
-    }
 
     @Override
     public Student save(Student pUser) {
@@ -94,12 +83,6 @@ public class StudentServiceImpl implements StudentService {
     public Student findByLogin(String login) {
         return studentRepository.getStudentByLogin(login)
                 .orElseThrow(() -> new ItemNotFoundException("student with name - " + login + "not found"));
-    }
-
-    @Override
-    public Student findById(String id) {
-        return studentRepository.findById(id)
-                .orElseThrow(() -> new ItemNotFoundException("student with id - " + id + "not found"));
     }
 
     @Override
