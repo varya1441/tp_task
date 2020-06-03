@@ -23,10 +23,10 @@ public class Priority {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     private Event event;
-    @OneToOne(fetch = FetchType.LAZY,orphanRemoval = true, cascade = CascadeType.ALL)
+    @ManyToOne( cascade = CascadeType.ALL)
     @JsonIgnore
     private Student student;
     @ElementCollection

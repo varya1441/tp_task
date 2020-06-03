@@ -25,6 +25,6 @@ public interface StudentService {
 
     void deleteStudent(String id);
     Group getGroupByLogin(String name);
-    Priority getStudentPriority(String login);
+    Priority getStudentPriority(String login, String eventName);
 
 }

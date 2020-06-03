@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -37,17 +38,15 @@ public class StudentServiceImpl implements StudentService {
 
         Priority priority = createPriority(priorityDto, student);
 
-        student.setPriority(priority);
+        student.getPriorities().add(priority);
         update(student);
         return student;
     }
 
     private Priority createPriority(PriorityDto priorityDto, Student student) {
-        Priority priority = student.getPriority();
-        if (priority == null) {
-            priority = new Priority();
+        Priority priority = priority = new Priority();
 
-        }
+
         priority.setEvent(eventService.getEventByName(priorityDto.getEventName()));
         priority.setPriorities(priorityDto.getPriority());
         priority.setStudent(student);
@@ -105,12 +104,17 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Group getGroupByLogin(String name) {
+        Student student=findByLogin(name);
         return findByLogin(name).getGroup();
     }
 
     @Override
-    public Priority getStudentPriority(String login) {
+    public Priority getStudentPriority(String login, String eventName) {
         Student student = findByLogin(login);
-        return student.getPriority();
+        Event event = eventService.getEventByName(eventName);
+        return event.getPriorities().stream().findFirst().filter(p -> p.getStudent().getLogin().equals(login))
+                .orElseThrow(() -> new ItemNotFoundException("priority not found for student - " + login + " event" + eventName));
+
+
     }
 }

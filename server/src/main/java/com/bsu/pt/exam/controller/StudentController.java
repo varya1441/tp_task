@@ -57,9 +57,9 @@ public class StudentController {
         studentService.deleteStudent(login);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @GetMapping(value = "/priority/{login}")
-    public ResponseEntity<Priority> getPriority( @PathVariable String login) {
-        return new ResponseEntity<Priority>(studentService.getStudentPriority(login), HttpStatus.OK);
+    @GetMapping(value = "{eventName}/priority/{login}")
+    public ResponseEntity<Priority> getGroupByLogin(@PathVariable String eventName, @PathVariable String login) {
+        return new ResponseEntity<Priority>(studentService.getStudentPriority(login,eventName), HttpStatus.OK);
     }
 
 
