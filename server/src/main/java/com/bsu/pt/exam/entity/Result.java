@@ -40,7 +40,7 @@ public class Result implements Serializable {
     public String toString() {
         return "Result{" +
                 "id='" + id + '\'' +
-                ", students=" + students +
+
                 ", event=" + event.getEventName() +
                 '}';
     }

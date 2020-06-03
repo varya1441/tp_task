@@ -51,7 +51,7 @@ public class Event implements Serializable {
                 ", eventName='" + eventName + '\'' +
                 ", date=" + date +
                 ", group=" + group.getGroupName() +
-                ", priorities=" + priorities +
+                ", priorities=" + priorities.toString() +
 
                 '}';
     }

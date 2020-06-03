@@ -37,7 +37,7 @@ public class Priority {
     public String toString() {
         return "Priority{" +
                 "id='" + id + '\'' +
-                ", event=" + event +
+                ", event=" + event.getEventName()+
                 ", student=" + student.getLogin() +
                 ", priorities=" + priorities.toString() +
                 '}';
