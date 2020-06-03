@@ -37,9 +37,8 @@ public class Student {
     @ManyToOne
     @JsonIgnore
     private Result result;
-    @OneToOne(orphanRemoval = true)
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     private Priority priority;
-    //    @Column(columnDefinition = "boolean default false")
     private Boolean checkedInvite = false;
 
     public Group getGroup() {
@@ -61,7 +60,7 @@ public class Student {
                 ", role=" + role +
                 ", group=" + group.getGroupName() +
                 ", result=" + result +
-                ", priority=" + priority +
+                ", priority=" + priority.getPriorities()+
                 ", checkedInvite=" + checkedInvite +
                 '}';
     }

@@ -26,9 +26,9 @@ public class EventController {
         this.resultService = resultService;
     }
 
-    @PostMapping(value = "/")
-    public ResponseEntity<Event> addEvent(@RequestBody EventDto event) {
-        return new ResponseEntity<>(eventService.addEvent(event), HttpStatus.CREATED);
+    @PostMapping(value = "/{groupName}")
+    public ResponseEntity<Event> addEvent(@PathVariable String groupName, @RequestBody EventDto event) {
+        return new ResponseEntity<>(eventService.addEvent(groupName, event), HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{id}")
@@ -56,5 +56,10 @@ public class EventController {
     public ResponseEntity<?> delete(@PathVariable String id) {
         eventService.deleteEvent(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{eventName}/result/{groupName}")
+    public ResponseEntity<Result> createResult(@PathVariable String groupName,@PathVariable String eventName) {
+        return new ResponseEntity<>(resultService.createResult(eventName,groupName), HttpStatus.CREATED);
     }
 }

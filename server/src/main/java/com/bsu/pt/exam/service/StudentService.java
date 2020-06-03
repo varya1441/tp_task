@@ -17,6 +17,8 @@ public interface StudentService {
 
     Student setChecked(String login);
 
+    Student update(Student pUser);
+
     Student setPriority(String studentId, PriorityDto priorityDto);
 
     void deleteStudent(String id);

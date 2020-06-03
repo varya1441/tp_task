@@ -17,4 +17,6 @@ public interface ResultService {
 
     Result save(Result result);
 
+    Result createResult(String eventId, String groupName);
+
 }

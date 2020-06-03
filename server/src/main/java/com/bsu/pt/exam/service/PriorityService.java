@@ -4,4 +4,6 @@ import com.bsu.pt.exam.entity.Priority;
 
 public interface PriorityService {
     Priority getPriorityById(String id);
+
+    Priority addPriority(Priority priority);
 }

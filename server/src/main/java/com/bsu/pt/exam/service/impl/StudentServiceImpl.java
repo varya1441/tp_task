@@ -5,8 +5,8 @@ import com.bsu.pt.exam.entity.Priority;
 import com.bsu.pt.exam.entity.Student;
 import com.bsu.pt.exam.exception.ItemNotFoundException;
 import com.bsu.pt.exam.repository.StudentRepository;
+import com.bsu.pt.exam.service.PriorityService;
 import com.bsu.pt.exam.service.StudentService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,18 +17,31 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PriorityService priorityService;
 
     @Autowired
-    public StudentServiceImpl(StudentRepository studentRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+
+    public StudentServiceImpl(StudentRepository studentRepository, BCryptPasswordEncoder bCryptPasswordEncoder, PriorityService priorityService) {
         this.studentRepository = studentRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.priorityService = priorityService;
     }
 
+
     @Override
-    public Student setPriority(String studentId, PriorityDto priorityDto) {
-        Student student = findById(studentId);
-        Priority p = student.getPriority();
-        p.setPriorities(priorityDto.getPriority());
+    public Student setPriority(String login, PriorityDto priorityDto) {
+        Student student = findByLogin(login);
+        Priority priority = student.getPriority();
+        if (priority == null) {
+            priority = new Priority();
+
+        }
+        priority.setPriorities(priorityDto.getPriority());
+        priority.setStudent(student);
+        priorityService.addPriority(priority);
+
+        student.setPriority(priority);
+        update(student);
         return student;
     }
 
@@ -46,6 +59,11 @@ public class StudentServiceImpl implements StudentService {
 
         String password = pUser.getPassword() != null ? pUser.getPassword() : Student.DEFAULT_USER_PASSWORD;
         pUser.setPassword(bCryptPasswordEncoder.encode(password));
+        return studentRepository.save(pUser);
+    }
+
+    @Override
+    public Student update(Student pUser) {
         return studentRepository.save(pUser);
     }
 

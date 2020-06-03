@@ -21,4 +21,9 @@ public class PriorityServiceImpl implements PriorityService {
         return priorityRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("priority with id - " + id + "not found"));
     }
+
+    @Override
+    public Priority addPriority(Priority priority) {
+        return priorityRepository.save(priority);
+    }
 }
