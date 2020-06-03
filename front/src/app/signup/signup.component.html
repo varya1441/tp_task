@@ -44,7 +44,16 @@
           </mat-form-field>
         </div>
 
-        <mat-checkbox style="margin-top: 30px; margin-bottom: 30px;" [(ngModel)]="leader" name="leader">Create new group as leader</mat-checkbox>
+        <div class="form" *ngIf="leader">
+          <mat-form-field color="accent">
+            <input matInput (click)="errorState = false" class="form-control" autocomplete="off"
+                   placeholder="Group name" [(ngModel)]="groupName" name="groupName">
+          </mat-form-field>
+        </div>
+
+        <div style = "margin-bottom: 20px; margin-top: 20px;">
+          <mat-checkbox style="margin-top: 30px; margin-bottom: 30px;" [(ngModel)]="leader" name="leader">Create new group as leader</mat-checkbox>
+        </div>
 
         <div *ngIf="errorState" class="errorBlock">
           {{errorMessage}}

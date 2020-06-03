@@ -7,8 +7,4 @@ export class GroupService {
   constructor(private http: HttpClient,
               private server: MockServerService) {}
 
-  // temporary mockServer realisation
-  public validateGroup(groupId){
-    this.server.svalidateGroup(groupId);
-  }
 }

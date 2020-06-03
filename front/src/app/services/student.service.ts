@@ -1,7 +1,5 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Student} from "../objects/Student";
 import {MockServerService} from "../mock-server/mockServer.servise";
 
 @Injectable({providedIn: "root"})
@@ -9,23 +7,33 @@ export class StudentService {
   constructor(private http: HttpClient,
               private server: MockServerService) {}
 
-  // temporary mockServer realisation
-  public validateStudent(login, password){
-    return this.server.validateStudent(login, password);
+  public getGroupByLogin(studentLogin){
+    return this.http.get('http://localhost:8080/student/group/' + studentLogin);
   }
 
-  // temporary mockServer realisation
-  public getGroup(studentId){
-    return this.server.getGroup(studentId);
+  public getStudentByLogin(studentLogin){
+    return this.http.get('http://localhost:8080/student/' + studentLogin);
   }
 
-  public getAllStudents(groupId):Observable<Student[]>{
-    return this.http.get<Student[]>("/assets/students_1.json");
+  public addStudent(inviteCode, groupName, student){
+    let leader: boolean = (student.role == "LEADER");
+    return this.http.post('http://localhost:8080/auth/register/', {
+      login: student.login,
+      password: student.password,
+      name: student.name,
+      lastName: student.lastName,
+      groupName: groupName,
+      inviteCode: inviteCode,
+      leader: leader
+    });
   }
 
-  // temporary mockServer realisation
-  public addStudent(groupId, student){
-    this.server.addStudent(groupId, student);
+  public deleteStudent(studentLogin){
+    return this.http.delete('http://localhost:8080/student/' + studentLogin);
+  }
+
+  public confirmxStudent(studentLogin){
+    return this.http.put('http://localhost:8080/student/' + studentLogin, {});
   }
 
 }

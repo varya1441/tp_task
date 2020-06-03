@@ -1,9 +1,79 @@
-<div>
-  <mat-toolbar color="primary">
-    <span>Group page</span>
-    <span class="space"></span>
-  </mat-toolbar>
-</div>
+<mat-accordion>
+  <div>
+   <mat-toolbar color="primary">
+
+      <p style="font-size: 16pt; font-weight: bold; color: white; margin-top: 12px; margin-left: 10px;">
+        {{group.groupName}} page
+      </p>
+
+      <button mat-flat-button class="invite-button" *ngIf="student!=null && student.role == 'LEADER'"
+              [cdkCopyToClipboard]="this.group.inviteCode" (cdkCopyToClipboardCopied)="getInviteCode()">
+        Get invite code
+      </button>
+
+      <span class="space"></span>
+    </mat-toolbar>
+  </div>
+
+  <mat-expansion-panel *ngIf="student!=null && student.role == 'LEADER'"
+    (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+
+      <mat-panel-title>
+        <p style="font-size: 16pt; font-weight: bold; color: #3f51b5; margin-top: 12px;"
+           [matBadge]="dataNotConfirmedLength" matBadgeColor="warn" matBadgeSize="small"
+           [matBadgeHidden]="panelOpenState == true || dataNotConfirmedLength <= 0">
+          Entry applications
+        </p>
+      </mat-panel-title>
+
+    </mat-expansion-panel-header>
+
+    <div class="mat-elevation-z8">
+      <div>
+        <mat-toolbar color="primary">
+          <span>Not confirmed Students</span>
+          <span class="space"></span>
+        </mat-toolbar>
+      </div>
+
+      <table mat-table [dataSource]="dataNotConfirmed">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let stud"> {{stud.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="surname">
+          <th mat-header-cell *matHeaderCellDef> Surname </th>
+          <td mat-cell *matCellDef="let stud"> {{stud.lastName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef='actions' >
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+
+          <td mat-cell *matCellDef="let stud; let i=index;">
+            <button mat-icon-button color="accent" (click)="confirmxStudent(stud)" [disabled]=" student == null || student.role != 'LEADER'">
+              <mat-icon>check</mat-icon>
+            </button>
+
+            <button mat-icon-button color="accent" (click)="deleteStudent(stud.login)" [disabled]=" student == null || student.role != 'LEADER'">
+              <mat-icon>close</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsNotConfirmed" ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsNotConfirmed;"></tr>
+
+      </table>
+
+      <mat-paginator [length]="dataNotConfirmedLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+    </div>
+
+  </mat-expansion-panel>
+</mat-accordion>
+
 
 <div class="box">
 <div class="tableBoxLeft">
@@ -15,30 +85,30 @@
     </mat-toolbar>
   </div>
 
-  <table mat-table [dataSource]="dataStudents" matSort>
+  <table mat-table [dataSource]="dataStudents">
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <th mat-header-cell *matHeaderCellDef> Name </th>
       <td mat-cell *matCellDef="let stud"> {{stud.name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="surname">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Surname </th>
+      <th mat-header-cell *matHeaderCellDef> Surname </th>
       <td mat-cell *matCellDef="let stud"> {{stud.lastName}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="actions"><!-- *ngIf="student.role == 'LEADER'">-->
-      <th mat-header-cell *matHeaderCellDef></th>
+    <ng-container matColumnDef='actions' >
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
 
       <td mat-cell *matCellDef="let stud; let i=index;">
-        <button mat-icon-button color="accent" (click)="deleteStudent(stud.id)">
+        <button mat-icon-button color="accent" (click)="deleteStudent(stud.login)" [disabled]=" student == null || student.role != 'LEADER'">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsStudents" ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsStudents;"></tr>
 
   </table>
 
@@ -55,34 +125,56 @@
       </mat-toolbar>
     </div>
 
-    <table mat-table [dataSource]="dataStudents" matSort>
+    <table mat-table [dataSource]="dataEvents">
 
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-        <td mat-cell *matCellDef="let stud"> {{stud.name}} </td>
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let eventT" (contextmenu)="onContextMenu($event, eventT)"> {{eventT.eventName}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="surname">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Surname </th>
-        <td mat-cell *matCellDef="let stud"> {{stud.lastName}} </td>
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let eventT" (contextmenu)="onContextMenu($event, eventT)"> {{eventT.date}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="actions"><!-- *ngIf="student.role == 'LEADER'">-->
-        <th mat-header-cell *matHeaderCellDef></th>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button color="accent" (click)="addEvent()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </th>
 
-        <td mat-cell *matCellDef="let stud; let i=index;">
-          <button mat-icon-button color="accent" (click)="deleteStudent(stud.id)">
-            <mat-icon>delete</mat-icon>
+        <td mat-cell *matCellDef="let eventT; let i=index;">
+          <button mat-icon-button color="accent" (click)="showResult()" [disabled]="eventT.result == null" >
+            <mat-icon>visibility</mat-icon>
+          </button>
+
+          <button mat-icon-button color="accent" (click)="onContextMenu($event, eventT)">
+            <mat-icon>more_vert</mat-icon>
           </button>
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsEvents"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsEvents;"></tr>
 
     </table>
 
-    <mat-paginator [length]="dataStudentsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+    <div style="visibility: hidden; position: fixed"
+         [style.left]="contextMenuPosition.x"
+         [style.top]="contextMenuPosition.y"
+         [matMenuTriggerFor]="contextMenu">
+    </div>
+
+    <mat-menu #contextMenu="matMenu">
+      <ng-template matMenuContent let-item="item">
+        <button mat-menu-item (click)="onContextMenuEditEvent(item)" *ngIf="student!=null && student.role == 'LEADER'">Edit event</button>
+        <button mat-menu-item (click)="onContextMenuGenerateResult(item)" *ngIf="student!=null && student.role == 'LEADER'">Generate result</button>
+        <button mat-menu-item (click)="onContextMenuUpdatePrior(item)">Edit priorities</button>
+      </ng-template>
+    </mat-menu>
+
+    <mat-paginator [length]="dataEventsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
   </div>
 </div>
 </div>

@@ -1,0 +1,27 @@
+<div class="container">
+  <h3 mat-dialog-title>Edit event</h3>
+
+  <form class="mat-dialog-content" (ngSubmit)="submit" #createForm="ngForm">
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput class="form-control" placeholder="Name" [(ngModel)]="data.name"
+               name="name" required #createdBy="ngModel">
+        <mat-error *ngIf="createdBy.errors?.required">Field required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput type="date" placeholder="Event date" [(ngModel)]="data.date"
+               name="eventDate" required #date1="ngModel">
+        <mat-error *ngIf="date1.errors?.required">Field required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button [type]="submit" [disabled]="!createForm.valid" [mat-dialog-close]="1" (click)="submit()">Create</button>
+      <button mat-button (click)="cancel()" mat-dialog-close="cancelled" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>

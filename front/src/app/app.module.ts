@@ -22,6 +22,20 @@ import {MockServerService} from "./mock-server/mockServer.servise";
 import {SignupComponent} from "./signup/signup.component";
 import {GroupService} from "./services/group.service";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {EventService} from "./services/event.service";
+import {MatMenuModule} from "@angular/material/menu";
+import {WallComponent} from "./wall.component/wall.component";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatBadgeModule} from "@angular/material/badge";
+import {ClipboardModule} from "@angular/cdk/clipboard";
+import {MatSortModule} from "@angular/material/sort";
+import {EventCreateComponent} from "./event-create/event-create.component";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatSliderModule} from "@angular/material/slider";
+import {PriorComponent} from "./prior/prior.component";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {TransferService} from "./services/transfer.service";
+import {EventEditComponent} from "./event-edit/event-edit.component";
 
 @NgModule({
   declarations: [
@@ -29,12 +43,23 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     LoginComponent,
     SignupComponent,
     GroupComponent,
+    WallComponent,
+    EventCreateComponent,
+    PriorComponent,
+    EventEditComponent,
+  ],
+  entryComponents: [
+    EventCreateComponent,
+    EventEditComponent,
   ],
   imports: [
     RouterModule.forRoot([
       {path: '', component: LoginComponent},
       {path: 'signup', component: SignupComponent},
       {path: 'main/:studentLogin', component: GroupComponent},
+      {path: 'notconfirmed', component: WallComponent},
+      {path: 'signupsuccess', component: WallComponent},
+      {path: 'prior/:eventName/:studentLogin', component: PriorComponent},
     ]),
     BrowserModule,
     ReactiveFormsModule,
@@ -42,16 +67,27 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatExpansionModule,
+    MatBadgeModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    MatSortModule,
     MatToolbarModule,
     MatTableModule,
     MatIconModule,
+    MatMenuModule,
     MatPaginatorModule,
     MatCheckboxModule,
+    ClipboardModule,
+    MatDialogModule,
+    MatSliderModule,
+    MatFormFieldModule,
   ],
-  providers: [LoginService, StudentService, MockServerService, GroupService],
+  exports: [
+    MatSortModule,
+  ],
+  providers: [LoginService, StudentService, MockServerService, GroupService, EventService, TransferService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

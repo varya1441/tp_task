@@ -30,8 +30,20 @@ export class LoginComponent{
     this.loginService.validateStudent(this.login, this.password).subscribe(
       (token:Token) => {
       this.password = "";
-      this.login = "";
-      this.router.navigate([`/main/${jwt_decode(token.accessToken).sub}`]);
+      this.login = jwt_decode(token.accessToken).sub;
+
+      this.studentService.getStudentByLogin(this.login).subscribe((stud:Student) => {
+        this.student = stud;
+        if(this.student.checkedInvite == true){
+          this.router.navigate([`/main/${jwt_decode(token.accessToken).sub}`]);
+        }
+        else{
+          this.router.navigate([`/notconfirmed`]);
+        }
+        this.student = null;
+        this.login = "";
+      });
+
     },
         error => {
       if(error.error.status === 403){
