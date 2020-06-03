@@ -53,9 +53,9 @@ public class EventController {
         return new ResponseEntity<Result>(resultService.updateResult(result), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/event/{eventId}")
-    public ResponseEntity<Event> updateEvent(@PathVariable String eventId, @RequestBody EventDto eventDto) {
-        return new ResponseEntity<Event>(eventService.updateEvent(eventId, eventDto), HttpStatus.OK);
+    @PutMapping(value = "/event/{eventName}")
+    public ResponseEntity<Event> updateEvent(@PathVariable String eventName, @RequestBody EventDto eventDto) {
+        return new ResponseEntity<Event>(eventService.updateEvent(eventName, eventDto), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{eventName}")
