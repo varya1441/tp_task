@@ -1,16 +1,18 @@
 package com.bsu.pt.exam.algo;
 
+import com.bsu.pt.exam.entity.Priority;
 import com.bsu.pt.exam.entity.Student;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class AlgorithmExecution {
 
     public AlgorithmExecution() {
     }
-//TO Check if null
+
     public List<String> getSolution(List<Student> students) {
         int n = students.size();
         List<String> studentsID = new ArrayList<>();
@@ -20,8 +22,12 @@ public class AlgorithmExecution {
         ) {
 
             studentsID.add(s.getLogin());
-
-            priorityMatrix.add(new ArrayList<>(s.getPriority().getPriorities().values()));
+            Priority priority = s.getPriority();
+            if (priority == null) {
+                priorityMatrix.add(new ArrayList<Integer>(Collections.nCopies(n, 0)));
+            } else {
+                priorityMatrix.add(new ArrayList<>(priority.getPriorities().values()));
+            }
             index++;
 
 
@@ -102,7 +108,7 @@ public class AlgorithmExecution {
         //Creating results
         for (int i = 1; i < n + 1; ++i) {
             int student_number = p[i] - 1;
-            solution.add(i-1,studentsID.get(student_number));
+            solution.add(i - 1, studentsID.get(student_number));
         }
 
         return solution;
