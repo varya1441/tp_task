@@ -1,7 +1,10 @@
 package com.bsu.pt.exam.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -12,6 +15,9 @@ import java.util.TreeMap;
 @Entity
 @Table(name = "priority")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Priority {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -20,7 +26,7 @@ public class Priority {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Event event;
-    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY,orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonIgnore
     private Student student;
     @ElementCollection

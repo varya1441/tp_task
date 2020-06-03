@@ -3,6 +3,7 @@ package com.bsu.pt.exam.service.impl;
 import com.bsu.pt.exam.dto.EventDto;
 import com.bsu.pt.exam.entity.Event;
 import com.bsu.pt.exam.entity.Group;
+import com.bsu.pt.exam.entity.Priority;
 import com.bsu.pt.exam.entity.Result;
 import com.bsu.pt.exam.exception.ItemNotFoundException;
 import com.bsu.pt.exam.repository.EventRepository;
@@ -64,8 +65,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event update(String id, Event event) {
-        return null;
+    public Event updateEvent(String eventId, EventDto event) {
+        Event event1 = getEventById(eventId);
+        event1.setEventName(event.getEventName());
+        event1.setDate(event.getDate());
+        return eventRepository.save(event1);
     }
 
     @Override
@@ -93,4 +97,13 @@ public class EventServiceImpl implements EventService {
             throw new ItemNotFoundException("No event to delete found with id" + id);
         }
     }
+
+    @Override
+    public Event updateEventResult(Event event) {
+        Event event1 = getEventById(event.getId());
+        event1.setResult(event.getResult());
+        return save(event);
+    }
+
+
 }

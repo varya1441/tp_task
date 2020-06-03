@@ -10,7 +10,7 @@ public class AlgorithmExecution {
 
     public AlgorithmExecution() {
     }
-
+//TO Check if null
     public List<String> getSolution(List<Student> students) {
         int n = students.size();
         List<String> studentsID = new ArrayList<>();

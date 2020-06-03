@@ -21,16 +21,14 @@ public class Group {
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true,
-            mappedBy = "group",
-            fetch = FetchType.LAZY
+            mappedBy = "group"
     )
     private List<Student> students = new ArrayList<>();
 
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true,
-            mappedBy = "group",
-            fetch = FetchType.LAZY
+            mappedBy = "group"
     )
     private List<Event> events = new ArrayList<>();
 

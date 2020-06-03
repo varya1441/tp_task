@@ -1,10 +1,13 @@
 package com.bsu.pt.exam.service.impl;
 
 import com.bsu.pt.exam.dto.PriorityDto;
+import com.bsu.pt.exam.entity.Event;
+import com.bsu.pt.exam.entity.Group;
 import com.bsu.pt.exam.entity.Priority;
 import com.bsu.pt.exam.entity.Student;
 import com.bsu.pt.exam.exception.ItemNotFoundException;
 import com.bsu.pt.exam.repository.StudentRepository;
+import com.bsu.pt.exam.service.EventService;
 import com.bsu.pt.exam.service.PriorityService;
 import com.bsu.pt.exam.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,31 +21,38 @@ public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private PriorityService priorityService;
+    private EventService eventService;
 
     @Autowired
-
-    public StudentServiceImpl(StudentRepository studentRepository, BCryptPasswordEncoder bCryptPasswordEncoder, PriorityService priorityService) {
+    public StudentServiceImpl(StudentRepository studentRepository, BCryptPasswordEncoder bCryptPasswordEncoder, PriorityService priorityService, EventService eventService) {
         this.studentRepository = studentRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.priorityService = priorityService;
+        this.eventService = eventService;
     }
-
 
     @Override
     public Student setPriority(String login, PriorityDto priorityDto) {
         Student student = findByLogin(login);
+
+        Priority priority = createPriority(priorityDto, student);
+
+        student.setPriority(priority);
+        update(student);
+        return student;
+    }
+
+    private Priority createPriority(PriorityDto priorityDto, Student student) {
         Priority priority = student.getPriority();
         if (priority == null) {
             priority = new Priority();
 
         }
+        priority.setEvent(eventService.getEventByName(priorityDto.getEventName()));
         priority.setPriorities(priorityDto.getPriority());
         priority.setStudent(student);
         priorityService.addPriority(priority);
-
-        student.setPriority(priority);
-        update(student);
-        return student;
+        return priority;
     }
 
     @Override
@@ -93,4 +103,14 @@ public class StudentServiceImpl implements StudentService {
                 .orElseThrow(() -> new ItemNotFoundException("student with id - " + id + "not found"));
     }
 
+    @Override
+    public Group getGroupByLogin(String name) {
+        return findByLogin(name).getGroup();
+    }
+
+    @Override
+    public Priority getStudentPriority(String login) {
+        Student student = findByLogin(login);
+        return student.getPriority();
+    }
 }

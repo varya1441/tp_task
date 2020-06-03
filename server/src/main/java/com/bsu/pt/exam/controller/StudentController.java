@@ -2,6 +2,7 @@ package com.bsu.pt.exam.controller;
 
 import com.bsu.pt.exam.dto.PriorityDto;
 import com.bsu.pt.exam.entity.Group;
+import com.bsu.pt.exam.entity.Priority;
 import com.bsu.pt.exam.entity.Student;
 import com.bsu.pt.exam.service.GroupService;
 import com.bsu.pt.exam.service.StudentService;
@@ -48,13 +49,17 @@ public class StudentController {
 
     @GetMapping(value = "/group/{login}")
     public ResponseEntity<Group> getGroupByLogin(@PathVariable String login) {
-        return new ResponseEntity<Group>(groupService.getGroupByLogin(login), HttpStatus.OK);
+        return new ResponseEntity<Group>(studentService.getGroupByLogin(login), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{login}")
     public ResponseEntity<?> delete(@PathVariable String login) {
         studentService.deleteStudent(login);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping(value = "/priority/{login}")
+    public ResponseEntity<Priority> getPriority( @PathVariable String login) {
+        return new ResponseEntity<Priority>(studentService.getStudentPriority(login), HttpStatus.OK);
     }
 
 

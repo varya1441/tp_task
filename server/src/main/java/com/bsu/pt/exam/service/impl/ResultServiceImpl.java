@@ -10,12 +10,9 @@ import com.bsu.pt.exam.service.EventService;
 import com.bsu.pt.exam.service.GroupService;
 import com.bsu.pt.exam.service.ResultService;
 import com.bsu.pt.exam.service.StudentService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -40,11 +37,11 @@ public class ResultServiceImpl implements ResultService {
         return resultRepository.getResultByEventId(eventId);
     }
 
+    //TODO
     @Override
-    public Result updateResult(String id, Result pResult) {
-        Result result = getById(id);
-        BeanUtils.copyProperties(pResult, result, "id");
-        return resultRepository.save(result);
+    public Result updateResult(Result pResult) {
+
+        return resultRepository.save(pResult);
     }
 
     @Override
@@ -63,13 +60,13 @@ public class ResultServiceImpl implements ResultService {
         List<Student> students = groupService.getStudentsByGroupName(groupName);
         List<String> resultStudentLogins = new AlgorithmExecution().getSolution(students);
         students.sort(Comparator.comparing(item -> resultStudentLogins.indexOf(item.getLogin())));
-        for (Student student:
-             students) {
+        for (Student student :
+                students) {
             student.setResult(result);
             studentService.update(student);
         }
         event.setResult(result);
-
+        eventService.updateEventResult(event);
         return result;
     }
 
