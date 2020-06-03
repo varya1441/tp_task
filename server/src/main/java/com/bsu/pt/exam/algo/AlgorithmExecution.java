@@ -2,6 +2,7 @@ package com.bsu.pt.exam.algo;
 
 import com.bsu.pt.exam.entity.Priority;
 import com.bsu.pt.exam.entity.Student;
+import com.bsu.pt.exam.exception.ItemNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ public class AlgorithmExecution {
     public AlgorithmExecution() {
     }
 
-    public List<String> getSolution(List<Student> students) {
+    public List<String> getSolution(String eventName,List<Student> students) {
         int n = students.size();
         List<String> studentsID = new ArrayList<>();
         List<List<Integer>> priorityMatrix = new ArrayList<>();
@@ -22,11 +23,21 @@ public class AlgorithmExecution {
         ) {
 
             studentsID.add(s.getLogin());
-//            Priority priority = s.getPriorities().get(0);
             if (s.getPriorities().size() == 0) {
                 priorityMatrix.add(new ArrayList<Integer>(Collections.nCopies(n, 0)));
             } else {
-                priorityMatrix.add(new ArrayList<>(s.getPriorities().get(0).getPriorities().values()));
+                Priority p=null;
+                for (Priority priority:
+                        s.getPriorities()) {
+                    if(priority.getEvent().getEventName().equals(eventName)){
+                        p=priority;
+                    }
+                }
+                if (p!=null) {
+                    priorityMatrix.add(new ArrayList<>(p.getPriorities().values()));
+                }else {
+                    throw new ItemNotFoundException("smth went wrong in algo");
+                }
             }
             index++;
 

@@ -108,7 +108,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Priority updatePriority(String login, PriorityDto priorityDto) {
-        Priority priority=getStudentPriority(login,priorityDto.getEventName());
+        Priority priority;
+    try {
+        priority = getStudentPriority(login, priorityDto.getEventName());
+    }catch (ItemNotFoundException e){
+        priority=createPriority(priorityDto,findByLogin(login));
+    }
         priority.setPriorities(priorityDto.getPriority());
         priorityService.update(priority);
         return priority;

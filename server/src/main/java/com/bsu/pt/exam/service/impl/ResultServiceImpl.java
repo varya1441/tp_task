@@ -60,7 +60,7 @@ public class ResultServiceImpl implements ResultService {
 
 
         List<Student> students = groupService.getStudentsByGroupName(groupName);
-        List<String> resultStudentLogins = new AlgorithmExecution().getSolution(students);
+        List<String> resultStudentLogins = new AlgorithmExecution().getSolution(eventName,students);
         students.sort(Comparator.comparing(item -> resultStudentLogins.indexOf(item.getLogin())));
         for (Student student :
                 students) {
