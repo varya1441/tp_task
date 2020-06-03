@@ -104,7 +104,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Group getGroupByLogin(String name) {
-        Student student=findByLogin(name);
+        Student student = findByLogin(name);
         return findByLogin(name).getGroup();
     }
 
@@ -112,8 +112,13 @@ public class StudentServiceImpl implements StudentService {
     public Priority getStudentPriority(String login, String eventName) {
         Student student = findByLogin(login);
         Event event = eventService.getEventByName(eventName);
-        return event.getPriorities().stream().findFirst().filter(p -> p.getStudent().getLogin().equals(login))
-                .orElseThrow(() -> new ItemNotFoundException("priority not found for student - " + login + " event" + eventName));
+        for (Priority p :
+                event.getPriorities()) {
+            if (p.getStudent().getLogin().equals(login)) {
+                return p;
+            }
+        }
+        throw new ItemNotFoundException("priority not found for student - " + login + " event" + eventName);
 
 
     }
